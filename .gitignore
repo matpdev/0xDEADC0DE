@@ -104,8 +104,7 @@ saves/
 # Runtime generated
 logs/
 *.log.*
-core
-core.*
+
 vgcore.*ing
 Testing/
 test_results/
