@@ -185,6 +185,9 @@ private:
     String m_version;
     float32 m_titleFontSize{64.0f};
     float32 m_versionFontSize{32.0f};
+
+    // TextRenderer for accurate width calculations
+    TextRenderer* m_textRenderer{nullptr};
 };
 
 }  // namespace deadcode

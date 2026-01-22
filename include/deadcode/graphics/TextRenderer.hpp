@@ -95,6 +95,15 @@ public:
      */
     void updateScreenSize(int32 width, int32 height);
 
+    /**
+     * @brief Calculate the width of a text string
+     *
+     * @param text Text string to measure
+     * @param scale Text scale factor
+     * @return Width in pixels
+     */
+    float32 getTextWidth(const String& text, float32 scale) const;
+
     // Delete copy constructor and assignment
     TextRenderer(const TextRenderer&)            = delete;
     TextRenderer& operator=(const TextRenderer&) = delete;

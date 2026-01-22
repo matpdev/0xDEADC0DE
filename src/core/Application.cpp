@@ -271,14 +271,15 @@ Application::initializeRenderer()
     }
 
     // Load font
-    if (!m_impl->renderer->getTextRenderer()->loadFont("assets/fonts/dos-vga.ttf", 48))
+    if (!m_impl->renderer->getTextRenderer()->loadFont(
+            "assets/fonts/JetBrainsMonoNerdFont-Regular.ttf", 48))
     {
         Logger::error("Failed to load font");
         return false;
     }
 
     // Set clear color to dark blue
-    m_impl->renderer->setClearColor(glm::vec3(0.0f, 0.0f, 0.2f));
+    m_impl->renderer->setClearColor(glm::vec3(0.0f, 0.0f, 0.0f));
 
     return true;
 }

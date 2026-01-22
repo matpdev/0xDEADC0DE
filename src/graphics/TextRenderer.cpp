@@ -252,6 +252,25 @@ TextRenderer::updateScreenSize(int32 width, int32 height)
     Logger::debug("TextRenderer screen size updated: {}x{}", width, height);
 }
 
+float32
+TextRenderer::getTextWidth(const String& text, float32 scale) const
+{
+    float32 width = 0.0f;
+
+    for (char c : text)
+    {
+        auto it = m_characters.find(c);
+        if (it != m_characters.end())
+        {
+            const Character& ch = it->second;
+            // Advance is in 1/64th pixels, convert to pixels
+            width += static_cast<float32>(ch.advance >> 6) * scale;
+        }
+    }
+
+    return width;
+}
+
 void
 TextRenderer::setupRenderData()
 {

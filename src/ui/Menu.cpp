@@ -67,27 +67,31 @@ Menu::render(TextRenderer* textRenderer)
     if (!textRenderer || m_items.empty())
         return;
 
+    // Store TextRenderer for width calculations
+    m_textRenderer = textRenderer;
+
     // Render title if set
     if (!m_title.empty())
     {
-        float32 titleWidth = static_cast<float32>(m_title.length()) * m_titleFontSize * 0.5f;
+        float32 titleScale = m_titleFontSize / 48.0f;
+        float32 titleWidth = textRenderer->getTextWidth(m_title, titleScale);
         float32 titleX     = (static_cast<float32>(m_screenWidth) - titleWidth) / 2.0f;
         float32 titleY     = static_cast<float32>(m_screenHeight) * 0.8f;  // 80% from bottom
 
         glm::vec3 titleColor(0.0f, 1.0f, 0.0f);  // Green
-        textRenderer->renderText(m_title, titleX, titleY, m_titleFontSize / 48.0f, titleColor);
+        textRenderer->renderText(m_title, titleX, titleY, titleScale, titleColor);
     }
 
     // Render version if set
     if (!m_version.empty())
     {
-        float32 versionWidth = static_cast<float32>(m_version.length()) * m_versionFontSize * 0.5f;
+        float32 versionScale = m_versionFontSize / 48.0f;
+        float32 versionWidth = textRenderer->getTextWidth(m_version, versionScale);
         float32 versionX     = (static_cast<float32>(m_screenWidth) - versionWidth) / 2.0f;
         float32 versionY     = static_cast<float32>(m_screenHeight) * 0.72f;  // Below title
 
         glm::vec3 versionColor(0.7f, 0.7f, 0.7f);  // Light gray
-        textRenderer->renderText(m_version, versionX, versionY, m_versionFontSize / 48.0f,
-                                 versionColor);
+        textRenderer->renderText(m_version, versionX, versionY, versionScale, versionColor);
     }
 
     // Render menu items
@@ -111,14 +115,18 @@ Menu::render(TextRenderer* textRenderer)
             color = glm::vec3(1.0f, 1.0f, 1.0f);  // White for normal
         }
 
-        // Add selection indicator
+        // Add selection indicator and recalculate center position
         String displayText = item.label;
         if (static_cast<int32>(i) == m_selectedIndex && item.enabled)
         {
             displayText = "> " + displayText + " <";
         }
 
-        textRenderer->renderText(displayText, pos.x, pos.y, 1.0f, color);
+        // Calculate actual text width using TextRenderer
+        float32 displayWidth = textRenderer->getTextWidth(displayText, 1.0f);
+        float32 renderX      = (static_cast<float32>(m_screenWidth) - displayWidth) / 2.0f;
+
+        textRenderer->renderText(displayText, renderX, pos.y, 1.0f, color);
     }
 }
 
@@ -238,8 +246,9 @@ Menu::calculatePositions()
     float32 totalHeight = static_cast<float32>(m_items.size()) * m_itemSpacing;
 
     // Start Y position to center menu vertically
-    float32 startY = (static_cast<float32>(m_screenHeight) - totalHeight) / 2.0f +
-                     static_cast<float32>(m_screenHeight) / 2.0f;
+    float32 startY = (static_cast<float32>(m_screenHeight) - totalHeight) / 2.0f;
+
+    Logger::info("HOW MUCH SPACE USED? H S: {}, H C: {}", m_screenHeight, startY);
 
     for (size_t i = 0; i < m_items.size(); ++i)
     {
@@ -260,29 +269,31 @@ Menu::isMouseOverItem(int32 index, float32 mouseX, float32 mouseY) const
     if (index < 0 || index >= static_cast<int32>(m_itemPositions.size()))
         return false;
 
+    if (!m_textRenderer)
+        return false;
+
     const auto& pos = m_itemPositions[static_cast<size_t>(index)];
 
     // Convert mouse Y to OpenGL coordinates (flip Y axis)
     float32 glMouseY = static_cast<float32>(m_screenHeight) - mouseY;
 
-    // Calculate text bounds
-    // Text is rendered with selection indicators if selected
+    // Calculate text bounds using the same centering logic as render
     String displayText = m_items[static_cast<size_t>(index)].label;
     if (static_cast<int32>(index) == m_selectedIndex && m_items[static_cast<size_t>(index)].enabled)
     {
         displayText = "> " + displayText + " <";
     }
 
-    // Approximate text width based on character count
-    float32 textWidth = static_cast<float32>(displayText.length()) * m_fontSize * 0.5f;
+    // Calculate actual text width using TextRenderer
+    float32 displayWidth = m_textRenderer->getTextWidth(displayText, 1.0f);
+    float32 renderX      = (static_cast<float32>(m_screenWidth) - displayWidth) / 2.0f;
 
     // Text height - the text extends upward from baseline (pos.y)
-    // We need to check from pos.y (baseline) up to pos.y + fontSize
     float32 textTop    = pos.y + m_fontSize;
     float32 textBottom = pos.y - m_fontSize * 0.3f;  // Allow some space below baseline
 
     // Check if mouse is within text bounds
-    bool withinX = mouseX >= pos.x && mouseX <= pos.x + textWidth;
+    bool withinX = mouseX >= renderX && mouseX <= renderX + displayWidth;
     bool withinY = glMouseY >= textBottom && glMouseY <= textTop;
 
     return withinX && withinY;
