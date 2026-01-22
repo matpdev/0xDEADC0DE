@@ -1,0 +1,30 @@
+[
+    {
+        "name": "GCC (vcpkg)",
+        "compilers": {
+            "C": "/usr/bin/gcc",
+            "CXX": "/usr/bin/g++"
+        },
+        "toolchainFile": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "preferredGenerator": {
+            "name": "Unix Makefiles"
+        },
+        "environmentVariables": {
+            "VCPKG_ROOT": "/home/mistergrow/vcpkg"
+        }
+    },
+    {
+        "name": "Clang (vcpkg)",
+        "compilers": {
+            "C": "/usr/bin/clang",
+            "CXX": "/usr/bin/clang++"
+        },
+        "toolchainFile": "${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "preferredGenerator": {
+            "name": "Unix Makefiles"
+        },
+        "environmentVariables": {
+            "VCPKG_ROOT": "/home/mistergrow/vcpkg"
+        }
+    }
+]

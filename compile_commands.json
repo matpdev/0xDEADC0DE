@@ -1,0 +1,272 @@
+[
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/core/Application.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Application.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Application.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/core/Application.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/core/Logger.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Logger.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Logger.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/core/Logger.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/core/Config.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Config.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Config.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/core/Config.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/core/Timer.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Timer.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/Timer.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/core/Timer.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/core/ResourceManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/ResourceManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/core/ResourceManager.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/core/ResourceManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/Window.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Window.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Window.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/Window.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/Renderer.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Renderer.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Renderer.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/Renderer.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/Shader.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Shader.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/Shader.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/Shader.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/TextRenderer.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/TextRenderer.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/TextRenderer.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/TextRenderer.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/AnimationSystem.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/AnimationSystem.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/AnimationSystem.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/AnimationSystem.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/EffectManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/EffectManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/graphics/EffectManager.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/graphics/EffectManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/input/InputManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/InputManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/InputManager.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/input/InputManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/input/TextInput.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/TextInput.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/TextInput.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/input/TextInput.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/input/CommandParser.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/CommandParser.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/input/CommandParser.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/input/CommandParser.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/audio/AudioManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/AudioManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/AudioManager.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/audio/AudioManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/audio/SoundEffect.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/SoundEffect.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/SoundEffect.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/audio/SoundEffect.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/audio/MusicPlayer.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/MusicPlayer.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/audio/MusicPlayer.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/audio/MusicPlayer.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/ui/UIManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/UIManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/UIManager.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/ui/UIManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/ui/Console.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/Console.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/Console.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/ui/Console.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/ui/TextBox.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/TextBox.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/TextBox.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/ui/TextBox.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -fPIC -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/ui/Menu.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/Menu.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/ui/Menu.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/ui/Menu.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/GameState.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/GameState.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/GameState.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/GameState.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/GameLoop.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/GameLoop.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/SaveSystem.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/SaveSystem.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/SaveSystem.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/SaveSystem.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/entities/Entity.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Entity.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Entity.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/entities/Entity.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/entities/Character.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Character.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Character.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/entities/Character.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/entities/Player.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Player.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Player.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/entities/Player.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/entities/NPC.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/NPC.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/NPC.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/entities/NPC.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/entities/Enemy.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Enemy.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/entities/Enemy.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/entities/Enemy.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/world/World.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/World.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/World.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/world/World.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/world/Location.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/Location.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/Location.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/world/Location.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/world/Room.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/Room.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/world/Room.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/world/Room.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/combat/CombatSystem.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/CombatSystem.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/CombatSystem.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/combat/CombatSystem.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/combat/Ability.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/Ability.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/Ability.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/combat/Ability.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/combat/StatusEffect.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/StatusEffect.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/combat/StatusEffect.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/combat/StatusEffect.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/items/Item.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Item.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Item.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/items/Item.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/items/Inventory.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Inventory.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Inventory.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/items/Inventory.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/items/Equipment.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Equipment.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/items/Equipment.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/items/Equipment.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/quest/Quest.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/Quest.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/Quest.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/quest/Quest.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/quest/QuestManager.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/QuestManager.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/QuestManager.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/quest/QuestManager.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/quest/Objective.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/Objective.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/quest/Objective.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/quest/Objective.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueSystem.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueSystem.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueSystem.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueSystem.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueTree.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueTree.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueTree.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueTree.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -I/home/mistergrow/Storage/Projects/0xDEADC0DE/src -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueNode.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueNode.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/game/dialogue/DialogueNode.cpp",
+  "output": "CMakeFiles/deadcode_game.dir/src/game/dialogue/DialogueNode.cpp.o"
+},
+{
+  "directory": "/home/mistergrow/Storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DAL_LIBTYPE_STATIC -DGLEW_STATIC -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/home/mistergrow/Storage/Projects/0xDEADC0DE/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /home/mistergrow/Storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/AL -O3 -DNDEBUG -std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_rpg.dir/src/main.cpp.o -c /home/mistergrow/Storage/Projects/0xDEADC0DE/src/main.cpp",
+  "file": "/home/mistergrow/Storage/Projects/0xDEADC0DE/src/main.cpp",
+  "output": "CMakeFiles/deadcode_rpg.dir/src/main.cpp.o"
+}
+]

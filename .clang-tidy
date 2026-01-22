@@ -1,0 +1,87 @@
+# 0xDEADC0DE Text-Based RPG - Clang Tidy Configuration
+
+---
+Checks: >
+  -*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  cert-*,
+  clang-analyzer-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  google-*,
+  -google-readability-todo,
+  misc-*,
+  -misc-non-private-member-variables-in-classes,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  performance-*,
+  portability-*,
+  readability-*,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+
+WarningsAsErrors: ''
+
+HeaderFilterRegex: '.*'
+
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: PascalCase
+  - key: readability-identifier-naming.StructCase
+    value: PascalCase
+  - key: readability-identifier-naming.EnumCase
+    value: PascalCase
+  - key: readability-identifier-naming.EnumConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.FunctionCase
+    value: camelCase
+  - key: readability-identifier-naming.MethodCase
+    value: camelCase
+  - key: readability-identifier-naming.ParameterCase
+    value: camelCase
+  - key: readability-identifier-naming.VariableCase
+    value: camelCase
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: camelCase
+  - key: readability-identifier-naming.PrivateMemberPrefix
+    value: 'm_'
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: camelCase
+  - key: readability-identifier-naming.ProtectedMemberPrefix
+    value: 'm_'
+  - key: readability-identifier-naming.PublicMemberCase
+    value: camelCase
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.GlobalConstantPrefix
+    value: ''
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: PascalCase
+  - key: readability-identifier-naming.TypedefCase
+    value: PascalCase
+  - key: readability-identifier-naming.TypeAliasCase
+    value: PascalCase
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: true
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'
+  - key: readability-braces-around-statements.ShortStatementLines
+    value: 0
+  - key: readability-function-size.LineThreshold
+    value: 100
+  - key: readability-function-size.StatementThreshold
+    value: 50
+  - key: readability-function-size.ParameterThreshold
+    value: 6
+  - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value: true
+...

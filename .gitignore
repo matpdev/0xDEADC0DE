@@ -1,0 +1,115 @@
+# 0xDEADC0DE Text-Based RPG - Git Ignore File
+
+# Build directories
+build/
+cmake-build-*/
+out/
+bin/
+lib/*.a
+lib/*.so
+lib/*.dylib
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+.project
+.cproject
+.settings/
+
+# VS Code - keep config but ignore local database
+.vscode/browse.vc.db
+.vscode/browse.vc.db-*
+.vscode/ipch/
+.vscode/*.log
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+!cmake/*.cmake
+!cmake/*.cmake.in
+CTestTestfile.cmake
+compile_commands.json.backup
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+*.a - ignore installed packages but keep manifest
+vcpkg_installed/
+.vcpkg-root
+vcpkg-manifest-install.log
+# vcpkg
+vcpkg_installed/
+vcpkg/
+
+# Debug files
+*.dSYM/
+*.pdb
+*.ilk
+
+# Package managers
+conan/
+conanbuildinfo.*
+
+# Documentation generated
+docs/html/
+docs/latex/
+doxygen/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Save files and game data
+saves/
+*.sav
+
+# Temporary files
+*.tmp
+*.temp
+*~.lock
+
+# Clang/LLVM
+.clangd/
+.clang-format.backup
+.clang-tidy.backup
+.cache/
+
+# Test
+*.gcov.json
+*.profdata
+*.profraw
+
+# Runtime generated
+logs/
+*.log.*
+core
+core.*
+vgcore.*ing
+Testing/
+test_results/
+coverage/
+*.gcov
+*.gcda
+*.gcno

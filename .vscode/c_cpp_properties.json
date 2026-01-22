@@ -1,0 +1,38 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/include/**",
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/build/vcpkg_installed/x64-linux/include/**",
+                "${env:VCPKG_ROOT}/installed/x64-linux/include/**",
+                "/usr/include/**",
+                "/usr/local/include/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++20",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compileCommands": "${workspaceFolder}/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/build/vcpkg_installed/x64-linux/include",
+                    "/usr/include",
+                    "/usr/local/include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,164 @@
+# 0xDEADC0DE Text-Based RPG - Clang Format Configuration
+# Based on GNU style with modern C++ adaptations
+
+---
+Language: Cpp
+Standard: c++20
+
+# Base style
+BasedOnStyle: GNU
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+IndentCaseLabels: true
+IndentCaseBlocks: false
+IndentGotoLabels: true
+IndentPPDirectives: AfterHash
+IndentExternBlock: AfterExternBlock
+IndentWrappedFunctionNames: false
+NamespaceIndentation: None
+AccessModifierOffset: -4
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignArrayOfStructures: Right
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveBitFields: Consecutive
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: Consecutive
+AlignEscapedNewlines: Left
+AlignOperands: Align
+AlignTrailingComments: true
+
+# Braces
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  AfterExternBlock: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: false
+  BeforeWhile: true
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Line breaking
+ColumnLimit: 100
+BreakBeforeBinaryOperators: None
+BreakBeforeConceptDeclarations: true
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+BreakStringLiterals: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakTemplateDeclarations: Yes
+
+# Spaces
+SpaceAfterCStyleCast: true
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: true
+SpaceAroundPointerQualifiers: Default
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInAngles: Never
+SpacesInCStyleCastParentheses: false
+SpacesInConditionalStatement: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Pointer alignment
+DerivePointerAlignment: false
+PointerAlignment: Left
+
+# Short forms
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+
+# Includes
+IncludeBlocks: Regroup
+IncludeCategories:
+  # Project headers
+  - Regex: '^"(deadcode|engine|game|core|graphics|input|audio|ui)/'
+    Priority: 1
+    SortPriority: 1
+  # Other project headers
+  - Regex: '^".*"'
+    Priority: 2
+    SortPriority: 2
+  # OpenGL/Graphics headers
+  - Regex: '^<(GL|GLFW|glm)/'
+    Priority: 3
+    SortPriority: 3
+  # C++ standard library
+  - Regex: '^<[a-z_]+>'
+    Priority: 4
+    SortPriority: 4
+  # C standard library
+  - Regex: '^<c[a-z]+>'
+    Priority: 5
+    SortPriority: 5
+  # System headers
+  - Regex: '<.*>'
+    Priority: 6
+    SortPriority: 6
+SortIncludes: CaseSensitive
+
+# Other
+BinPackArguments: true
+BinPackParameters: true
+CompactNamespaces: false
+Cpp11BracedListStyle: true
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: LogicalBlock
+FixNamespaceComments: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+PackConstructorInitializers: NextLine
+ReflowComments: true
+SeparateDefinitionBlocks: Always
+SortUsingDeclarations: true
+
+# Penalties (for line breaking decisions)
+PenaltyBreakAssignment: 25
+PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyBreakComment: 300
+PenaltyBreakFirstLessLess: 120
+PenaltyBreakString: 1000
+PenaltyBreakTemplateDeclaration: 10
+PenaltyExcessCharacter: 1000000
+PenaltyIndentedWhitespace: 0
+PenaltyReturnTypeOnItsOwnLine: 200
+
+# Comments
+CommentPragmas: '^ IWYU pragma:'
+...

@@ -1,0 +1,21 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "twxs.cmake",
+        "xaver.clang-format",
+        "notskm.clang-tidy",
+        "cheshirekow.cmake-format",
+        "jeff-hykin.better-cpp-syntax",
+        "cschlosser.doxdocgen",
+        "zxh404.vscode-proto3",
+        "gruntfuggly.todo-tree",
+        "shardulm94.trailing-spaces",
+        "streetsidesoftware.code-spell-checker",
+        "aaron-bond.better-comments",
+        "eamodio.gitlens",
+        "github.copilot"
+    ],
+    "unwantedRecommendations": []
+}

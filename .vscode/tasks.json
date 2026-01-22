@@ -1,0 +1,131 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build (Release)",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/build.sh",
+            "args": ["release"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Build (Debug)",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/build.sh",
+            "args": ["debug"],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "Clean Build",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/clean.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Game",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/run.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": true
+            },
+            "problemMatcher": [],
+            "dependsOn": ["Build (Release)"]
+        },
+        {
+            "label": "Format Code",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/format.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Lint Code",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/lint.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Tests",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/test.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "CMake Configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B", "${workspaceFolder}/build",
+                "-S", "${workspaceFolder}",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_TOOLCHAIN_FILE=/home/mistergrow/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "CMake Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build",
+                "--config", "Release",
+                "-j", "12"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc",
+            "group": "build"
+        },
+        {
+            "label": "Setup VS Code Config",
+            "type": "shell",
+            "command": "${workspaceFolder}/scripts/setup-vscode.sh",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

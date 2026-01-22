@@ -1,0 +1,60 @@
+{
+  "game": {
+    "title": "0xDEADC0DE",
+    "version": "0.1.0",
+    "save_directory": "saves",
+    "autosave_enabled": true,
+    "autosave_interval_minutes": 5
+  },
+  "graphics": {
+    "window": {
+      "width": 1280,
+      "height": 720,
+      "title": "0xDEADC0DE - Text-Based RPG",
+      "fullscreen": false,
+      "vsync": true,
+      "resizable": true
+    },
+    "rendering": {
+      "target_fps": 60,
+      "font_size": 16,
+      "line_spacing": 1.2,
+      "enable_animations": true,
+      "animation_speed": 1.0
+    },
+    "colors": {
+      "background": [0.05, 0.05, 0.08, 1.0],
+      "text_default": [0.9, 0.9, 0.9, 1.0],
+      "text_highlight": [1.0, 0.8, 0.2, 1.0],
+      "text_error": [1.0, 0.3, 0.3, 1.0],
+      "text_success": [0.3, 1.0, 0.3, 1.0],
+      "text_system": [0.5, 0.7, 1.0, 1.0]
+    }
+  },
+  "audio": {
+    "master_volume": 0.8,
+    "music_volume": 0.6,
+    "sfx_volume": 0.7,
+    "enable_music": true,
+    "enable_sfx": true
+  },
+  "input": {
+    "key_repeat_delay": 0.5,
+    "key_repeat_rate": 0.05,
+    "enable_autocomplete": true,
+    "command_history_size": 100
+  },
+  "gameplay": {
+    "difficulty": "normal",
+    "combat": {
+      "turn_based": true,
+      "show_damage_numbers": true,
+      "auto_save_after_combat": true
+    },
+    "ui": {
+      "show_fps": false,
+      "console_history_lines": 1000,
+      "text_scroll_speed": 50.0
+    }
+  }
+}
