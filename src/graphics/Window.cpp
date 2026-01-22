@@ -209,6 +209,7 @@ Window::setupOpenGL()
 void
 Window::framebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
+    (void) window;  // Unused
     glViewport(0, 0, width, height);
     Logger::debug("Framebuffer resized: {}x{}", width, height);
 }

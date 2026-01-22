@@ -3,6 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-blue.svg)](https://isocpp.org/)
 [![CMake](https://img.shields.io/badge/CMake-3.21+-064F8C.svg)](https://cmake.org/)
+[![Version](https://img.shields.io/badge/version-0.1.0-green.svg)](VERSION)
 
 A modern text-based RPG with stunning OpenGL-powered text animations, combining classic command-line gameplay with visual effects.
 

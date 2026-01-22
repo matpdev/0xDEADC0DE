@@ -8,6 +8,7 @@
 
 #include "deadcode/core/Application.hpp"
 #include "deadcode/core/Logger.hpp"
+#include "deadcode/core/Version.hpp"
 
 #include <cstdlib>
 #include <exception>
@@ -33,7 +34,8 @@ main(int argc, char** argv)
         }
 
         deadcode::Logger::info("========================================");
-        deadcode::Logger::info("0xDEADC0DE Text-Based RPG Starting...");
+        deadcode::Logger::info("{} - Text-Based RPG", deadcode::Version::getGameTitleWithVersion());
+        deadcode::Logger::info("Build: {}", deadcode::Version::BUILD_TYPE);
         deadcode::Logger::info("========================================");
 
         // Get application instance and initialize

@@ -12,12 +12,17 @@
 #pragma once
 
 #include "deadcode/core/Types.hpp"
+#include "deadcode/game/GameState.hpp"
 
 #include <memory>
 #include <string>
 
 namespace deadcode
 {
+
+class Menu;
+class InputManager;
+class SaveSystem;
 
 /**
  * @brief Main application class following the Singleton pattern
@@ -193,6 +198,31 @@ private:
      */
     void syncFrameRate();
 
+    /**
+     * @brief Setup main menu items
+     */
+    void setupMainMenu();
+
+    /**
+     * @brief Handle keyboard input
+     */
+    void handleKeyInput(int key, int scancode, int action, int mods);
+
+    /**
+     * @brief Handle mouse movement
+     */
+    void handleMouseMove(double x, double y);
+
+    /**
+     * @brief Handle mouse button input
+     */
+    void handleMouseButton(int button, int action, int mods);
+
+    /**
+     * @brief Handle window resize events
+     */
+    void handleWindowResize();
+
     // Subsystems (using Pimpl idiom for better compilation times)
     struct Impl;
     UniquePtr<Impl> m_impl;
@@ -203,6 +233,7 @@ private:
     bool m_exitRequested;
     int m_targetFPS;
     float m_currentFPS;
+    GameState m_gameState{GameState::MainMenu};
 };
 
 }  // namespace deadcode

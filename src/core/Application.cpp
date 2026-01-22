@@ -10,8 +10,13 @@
 
 #include "deadcode/core/Config.hpp"
 #include "deadcode/core/Logger.hpp"
+#include "deadcode/core/Version.hpp"
+#include "deadcode/game/GameState.hpp"
+#include "deadcode/game/SaveSystem.hpp"
 #include "deadcode/graphics/Renderer.hpp"
 #include "deadcode/graphics/Window.hpp"
+#include "deadcode/input/InputManager.hpp"
+#include "deadcode/ui/Menu.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -27,6 +32,9 @@ struct Application::Impl
     UniquePtr<Config> config;
     UniquePtr<Window> window;
     UniquePtr<Renderer> renderer;
+    UniquePtr<InputManager> inputManager;
+    UniquePtr<Menu> mainMenu;
+    UniquePtr<SaveSystem> saveSystem;
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
     float deltaTime{0.0f};
@@ -60,6 +68,9 @@ Application::getInstance()
 bool
 Application::initialize(int argc, char** argv)
 {
+    (void) argc;  // Unused for now
+    (void) argv;  // Unused for now
+
     Logger::info("Initializing application...");
 
     // Initialize GLFW
@@ -140,6 +151,9 @@ Application::run()
         {
             m_currentFPS = 1.0f / m_impl->deltaTime;
         }
+
+        // Check for window resize
+        handleWindowResize();
 
         processInput(m_impl->deltaTime);
         update(m_impl->deltaTime);
@@ -229,7 +243,7 @@ Application::initializeWindow()
     m_impl->window = std::make_unique<Window>();
 
     WindowConfig config;
-    config.title  = "0xDEADC0DE - Text-Based RPG";
+    config.title  = Version::getGameTitleWithVersion() + " - Text-Based RPG";
     config.width  = 800;
     config.height = 600;
     config.vsync  = true;
@@ -273,7 +287,26 @@ bool
 Application::initializeInput()
 {
     Logger::info("Initializing input system...");
-    // TODO: Implement input initialization
+
+    m_impl->inputManager = std::make_unique<InputManager>();
+
+    if (!m_impl->inputManager->initialize(m_impl->window.get()))
+    {
+        Logger::error("Failed to initialize input manager");
+        return false;
+    }
+
+    // Setup input callbacks
+    m_impl->inputManager->setKeyCallback([this](int key, int scancode, int action, int mods) {
+        handleKeyInput(key, scancode, action, mods);
+    });
+
+    m_impl->inputManager->setMouseMoveCallback(
+        [this](double x, double y) { handleMouseMove(x, y); });
+
+    m_impl->inputManager->setMouseButtonCallback(
+        [this](int button, int action, int mods) { handleMouseButton(button, action, mods); });
+
     return true;
 }
 
@@ -297,34 +330,88 @@ bool
 Application::initializeGame()
 {
     Logger::info("Initializing game systems...");
-    // TODO: Implement game initialization
+
+    // Initialize save system
+    m_impl->saveSystem = std::make_unique<SaveSystem>();
+    if (!m_impl->saveSystem->initialize())
+    {
+        Logger::error("Failed to initialize save system");
+        return false;
+    }
+
+    // Initialize main menu
+    m_impl->mainMenu = std::make_unique<Menu>();
+    if (!m_impl->mainMenu->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
+    {
+        Logger::error("Failed to initialize main menu");
+        return false;
+    }
+
+    // Setup menu items
+    setupMainMenu();
+
     return true;
 }
 
 void
 Application::processInput(float deltaTime)
 {
-    // TODO: Implement input processing
+    (void) deltaTime;  // Unused for now
+
+    // Input is handled via callbacks
+    // Check for ESC key to exit
+    if (m_impl->window->getNativeWindow())
+    {
+        if (glfwGetKey(m_impl->window->getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        {
+            if (m_gameState == GameState::Playing)
+            {
+                // Return to main menu from game
+                m_gameState = GameState::MainMenu;
+                Logger::info("Returned to main menu");
+            }
+            else if (m_gameState == GameState::MainMenu)
+            {
+                // Exit from main menu
+                requestExit();
+            }
+        }
+    }
 }
 
 void
 Application::update(float deltaTime)
 {
-    // TODO: Implement game state update
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
+    {
+        m_impl->mainMenu->update(deltaTime);
+    }
+    else if (m_gameState == GameState::Playing)
+    {
+        // TODO: Update game logic
+    }
 }
 
 void
 Application::render(float deltaTime)
 {
+    (void) deltaTime;  // Unused for now
+
     if (!m_impl->renderer)
         return;
 
     m_impl->renderer->beginFrame();
 
-    // Render "Hello World" in green at center of screen
     auto* textRenderer = m_impl->renderer->getTextRenderer();
-    if (textRenderer)
+
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu && textRenderer)
     {
+        // Render main menu
+        m_impl->mainMenu->render(textRenderer);
+    }
+    else if (m_gameState == GameState::Playing && textRenderer)
+    {
+        // Render "Hello World" in green at center of screen
         float32 x     = 200.0f;
         float32 y     = 300.0f;
         float32 scale = 1.0f;
@@ -344,8 +431,8 @@ Application::syncFrameRate()
         return;  // Unlimited FPS
     }
 
-    auto targetFrameTime                   = std::chrono::duration<float>(1.0f / m_targetFPS);
-    auto currentTime                       = std::chrono::high_resolution_clock::now();
+    auto targetFrameTime = std::chrono::duration<float>(1.0f / static_cast<float>(m_targetFPS));
+    auto currentTime     = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> frameTime = currentTime - m_impl->lastFrameTime;
 
     if (frameTime < targetFrameTime)
@@ -355,4 +442,113 @@ Application::syncFrameRate()
     }
 }
 
+void
+Application::setupMainMenu()
+{
+    if (!m_impl->mainMenu)
+        return;
+
+    m_impl->mainMenu->clear();
+
+    // Set menu title and version
+    m_impl->mainMenu->setTitle("0xDEADC0DE");
+    m_impl->mainMenu->setVersion(Version::getVersionString());
+
+    // Check if save files exist
+    bool hasSaves = m_impl->saveSystem && m_impl->saveSystem->hasSaveFiles();
+
+    // Add "Continue" only if saves exist
+    if (hasSaves)
+    {
+        m_impl->mainMenu->addItem("Continue", [this]() {
+            Logger::info("Continue selected");
+            m_gameState = GameState::Playing;
+            // TODO: Load last save
+        });
+    }
+
+    // Add "Start Game"
+    m_impl->mainMenu->addItem("Start Game", [this]() {
+        Logger::info("Start Game selected");
+        m_gameState = GameState::Playing;
+    });
+
+    // Add "Configuration"
+    m_impl->mainMenu->addItem("Configuration", [this]() {
+        Logger::info("Configuration selected");
+        m_gameState = GameState::Configuration;
+        // TODO: Show configuration screen
+    });
+
+    // Add "Exit Game"
+    m_impl->mainMenu->addItem("Exit Game", [this]() { requestExit(); });
+
+    Logger::info("Main menu setup complete (Continue: {})", hasSaves ? "enabled" : "disabled");
+}
+
+void
+Application::handleKeyInput(int key, int scancode, int action, int mods)
+{
+    (void) scancode;  // Unused for now
+    (void) mods;      // Unused for now
+
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
+    {
+        m_impl->mainMenu->handleKeyboard(key, action);
+    }
+}
+
+void
+Application::handleMouseMove(double x, double y)
+{
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
+    {
+        m_impl->mainMenu->handleMouseMove(static_cast<float32>(x), static_cast<float32>(y));
+    }
+}
+
+void
+Application::handleMouseButton(int button, int action, int mods)
+{
+    (void) mods;  // Unused for now
+
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
+    {
+        double x, y;
+        m_impl->inputManager->getMousePosition(x, y);
+        m_impl->mainMenu->handleMouseClick(button, action, static_cast<float32>(x),
+                                           static_cast<float32>(y));
+    }
+}
+
+void
+Application::handleWindowResize()
+{
+    static int32 lastWidth  = 0;
+    static int32 lastHeight = 0;
+
+    int32 currentWidth  = m_impl->window->getWidth();
+    int32 currentHeight = m_impl->window->getHeight();
+
+    // Check if window size changed
+    if (currentWidth != lastWidth || currentHeight != lastHeight)
+    {
+        lastWidth  = currentWidth;
+        lastHeight = currentHeight;
+
+        Logger::info("Window resized to {}x{}", currentWidth, currentHeight);
+
+        // Update text renderer projection
+        if (m_impl->renderer && m_impl->renderer->getTextRenderer())
+        {
+            m_impl->renderer->getTextRenderer()->updateScreenSize(currentWidth, currentHeight);
+        }
+
+        // Update menu layout
+        if (m_impl->mainMenu)
+        {
+            m_impl->mainMenu->updateScreenSize(currentWidth, currentHeight);
+        }
+    }
+}
 }  // namespace deadcode

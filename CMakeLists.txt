@@ -211,6 +211,9 @@ add_library(deadcode_engine STATIC
   src/core/Timer.cpp
   src/core/ResourceManager.cpp
 
+  # Game Systems (SaveSystem needed by Application)
+  src/game/SaveSystem.cpp
+
   # Graphics
   src/graphics/Window.cpp
   src/graphics/Renderer.cpp
@@ -271,9 +274,7 @@ set_target_properties(deadcode_engine PROPERTIES
 # -----------------------------------------------------------------------------
 add_library(deadcode_game STATIC
   # Game Systems
-  src/game/GameState.cpp
   src/game/GameLoop.cpp
-  src/game/SaveSystem.cpp
 
   # Entities
   src/game/entities/Entity.cpp

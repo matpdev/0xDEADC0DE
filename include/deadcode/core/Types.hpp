@@ -94,7 +94,7 @@ class TextBox;
 class Menu;
 
 // Game
-class GameState;
+// GameState is an enum class defined in deadcode/game/GameState.hpp
 class GameLoop;
 class SaveSystem;
 
