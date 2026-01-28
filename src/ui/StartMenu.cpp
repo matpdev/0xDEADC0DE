@@ -52,6 +52,7 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
                            glm::vec3(0.0f, 1.0f, 0.0f));  // Green content
     m_logoFrame->setPadding(1);
+    m_logoFrame->setScreenDimensions(screenWidth, screenHeight);
     float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.4f);
     m_logoFrame->setScale(logoScale);
 
@@ -69,6 +70,7 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
                            glm::vec3(1.0f, 1.0f, 1.0f));  // White content
     m_mainFrame->setPadding(2);
+    m_mainFrame->setScreenDimensions(screenWidth, screenHeight);
 
     float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 1.0f);
     m_mainFrame->setScale(menuScale);
@@ -386,6 +388,7 @@ StartMenu::onWindowResize(int32 screenWidth, int32 screenHeight)
 
     if (m_logoFrame)
     {
+        m_logoFrame->setScreenDimensions(screenWidth, screenHeight);
         float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.4f);
         m_logoFrame->setScale(logoScale);
 
@@ -410,6 +413,7 @@ StartMenu::onWindowResize(int32 screenWidth, int32 screenHeight)
 
     if (m_mainFrame)
     {
+        m_mainFrame->setScreenDimensions(screenWidth, screenHeight);
         float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 1.0f);
         m_mainFrame->setScale(menuScale);
         constexpr float32 MENU_BOTTOM_OFFSET = 100.0f;

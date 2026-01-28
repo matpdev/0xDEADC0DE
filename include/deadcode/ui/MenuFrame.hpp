@@ -197,6 +197,14 @@ public:
 
     void setScale(float32 scale);
 
+    /**
+     * @brief Set screen dimensions for proper centering
+     *
+     * @param screenWidth Screen width in pixels
+     * @param screenHeight Screen height in pixels
+     */
+    void setScreenDimensions(int32 screenWidth, int32 screenHeight);
+
     float32 m_scale{1.0f};
 
 private:
@@ -222,6 +230,12 @@ private:
     float32 calculateAlignedX(TextRenderer* textRenderer, const String& text, FrameAlign align,
                               float32 scale) const;
 
+    /**
+     * @brief Calculate title X position using screen dimensions
+     */
+    float32 calculateTitleX(TextRenderer* textRenderer, const String& text, FrameAlign align,
+                            float32 scale) const;
+
     FrameStyle m_style{FrameStyle::SINGLE};
     float32 m_x{0.0f};
     float32 m_y{0.0f};
@@ -239,6 +253,9 @@ private:
     glm::vec3 m_borderColor{0.0f, 1.0f, 1.0f};   // Cyan
     glm::vec3 m_titleColor{1.0f, 1.0f, 0.0f};    // Yellow
     glm::vec3 m_contentColor{1.0f, 1.0f, 1.0f};  // White
+
+    int32 m_screenWidth{0};   // Screen width for centering (0 = use frame width)
+    int32 m_screenHeight{0};  // Screen height for centering
 
     // Border characters for current style
     char m_topLeft;

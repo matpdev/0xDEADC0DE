@@ -109,7 +109,7 @@ MenuFrame::render(TextRenderer* textRenderer, float32 scale)
     if (!m_title.empty())
     {
         float32 titleY = m_y - charHeight;
-        float32 titleX = calculateAlignedX(textRenderer, m_title, m_titleAlign, scale);
+        float32 titleX = calculateTitleX(textRenderer, m_title, m_titleAlign, scale);
         textRenderer->renderText(m_title, titleX, titleY, scale, m_titleColor);
 
         // Render separator below title
@@ -437,6 +437,36 @@ MenuFrame::setScale(float32 scale)
 {
     Logger::debug("Setting MenuFrame scale: {}", scale);
     m_scale = scale;
+}
+
+void
+MenuFrame::setScreenDimensions(int32 screenWidth, int32 screenHeight)
+{
+    Logger::debug("Setting MenuFrame screen dimensions: {}x{}", screenWidth, screenHeight);
+    m_screenWidth  = screenWidth;
+    m_screenHeight = screenHeight;
+}
+
+float32
+MenuFrame::calculateTitleX(TextRenderer* textRenderer, const String& text, FrameAlign align,
+                           float32 scale) const
+{
+    if (!textRenderer)
+    {
+        Logger::warn("calculateTitleX called with null TextRenderer");
+        return m_x;
+    }
+
+    float32 textWidth = textRenderer->getTextWidth(text, scale);
+
+    // If screen dimensions are set and alignment is CENTER, center on screen
+    if (m_screenWidth > 0 && align == FrameAlign::CENTER)
+    {
+        return (static_cast<float32>(m_screenWidth) - textWidth) / 2.0f;
+    }
+
+    // Fall back to frame-based alignment
+    return calculateAlignedX(textRenderer, text, align, scale);
 }
 
 }  // namespace deadcode

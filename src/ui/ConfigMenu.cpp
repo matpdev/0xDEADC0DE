@@ -43,6 +43,7 @@ ConfigMenu::initialize(int32 screenWidth, int32 screenHeight, Config* config)
                                glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
                                glm::vec3(1.0f, 1.0f, 1.0f));  // White content
     m_categoryFrame->setPadding(1);
+    m_categoryFrame->setScreenDimensions(screenWidth, screenHeight);
 
     // Create main settings frame (center)
     m_mainFrame = std::make_unique<MenuFrame>(FrameStyle::DOUBLE);
@@ -58,6 +59,7 @@ ConfigMenu::initialize(int32 screenWidth, int32 screenHeight, Config* config)
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
                            glm::vec3(1.0f, 1.0f, 1.0f));  // White content
     m_mainFrame->setPadding(2);
+    m_mainFrame->setScreenDimensions(screenWidth, screenHeight);
 
     // Initialize settings
     initializeSettings();
