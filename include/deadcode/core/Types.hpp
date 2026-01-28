@@ -91,7 +91,8 @@ class MusicPlayer;
 class UIManager;
 class Console;
 class TextBox;
-class Menu;
+class MenuFrame;
+class StartMenu;
 
 // Game
 // GameState is an enum class defined in deadcode/game/GameState.hpp

@@ -16,7 +16,7 @@
 #include "deadcode/graphics/Renderer.hpp"
 #include "deadcode/graphics/Window.hpp"
 #include "deadcode/input/InputManager.hpp"
-#include "deadcode/ui/Menu.hpp"
+#include "deadcode/ui/StartMenu.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -33,7 +33,7 @@ struct Application::Impl
     UniquePtr<Window> window;
     UniquePtr<Renderer> renderer;
     UniquePtr<InputManager> inputManager;
-    UniquePtr<Menu> mainMenu;
+    UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
@@ -340,15 +340,15 @@ Application::initializeGame()
         return false;
     }
 
-    // Initialize main menu
-    m_impl->mainMenu = std::make_unique<Menu>();
+    // Initialize start menu
+    m_impl->mainMenu = std::make_unique<StartMenu>();
     if (!m_impl->mainMenu->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
     {
-        Logger::error("Failed to initialize main menu");
+        Logger::error("Failed to initialize start menu");
         return false;
     }
 
-    // Setup menu items
+    // Setup menu callbacks
     setupMainMenu();
 
     return true;
@@ -449,42 +449,36 @@ Application::setupMainMenu()
     if (!m_impl->mainMenu)
         return;
 
-    m_impl->mainMenu->clear();
-
-    // Set menu title and version
-    m_impl->mainMenu->setTitle("0xDEADC0DE");
-    m_impl->mainMenu->setVersion(Version::getVersionString());
-
     // Check if save files exist
     bool hasSaves = m_impl->saveSystem && m_impl->saveSystem->hasSaveFiles();
+    m_impl->mainMenu->setContinueEnabled(hasSaves);
 
-    // Add "Continue" only if saves exist
-    if (hasSaves)
-    {
-        m_impl->mainMenu->addItem("Continue", [this]() {
-            Logger::info("Continue selected");
-            m_gameState = GameState::Playing;
-            // TODO: Load last save
-        });
-    }
-
-    // Add "Start Game"
-    m_impl->mainMenu->addItem("Start Game", [this]() {
-        Logger::info("Start Game selected");
+    // Setup callbacks for each menu option
+    m_impl->mainMenu->setCallback(StartMenuOption::NEW_GAME, [this]() {
+        Logger::info("New Game selected");
         m_gameState = GameState::Playing;
     });
 
-    // Add "Configuration"
-    m_impl->mainMenu->addItem("Configuration", [this]() {
-        Logger::info("Configuration selected");
+    m_impl->mainMenu->setCallback(StartMenuOption::CONTINUE, [this]() {
+        Logger::info("Continue selected");
+        m_gameState = GameState::Playing;
+        // TODO: Load last save
+    });
+
+    m_impl->mainMenu->setCallback(StartMenuOption::SETTINGS, [this]() {
+        Logger::info("Settings selected");
         m_gameState = GameState::Configuration;
         // TODO: Show configuration screen
     });
 
-    // Add "Exit Game"
-    m_impl->mainMenu->addItem("Exit Game", [this]() { requestExit(); });
+    m_impl->mainMenu->setCallback(StartMenuOption::CREDITS, [this]() {
+        Logger::info("Credits selected");
+        // TODO: Show credits screen
+    });
 
-    Logger::info("Main menu setup complete (Continue: {})", hasSaves ? "enabled" : "disabled");
+    m_impl->mainMenu->setCallback(StartMenuOption::EXIT, [this]() { requestExit(); });
+
+    Logger::info("Start menu setup complete (Continue: {})", hasSaves ? "enabled" : "disabled");
 }
 
 void
@@ -495,31 +489,25 @@ Application::handleKeyInput(int key, int scancode, int action, int mods)
 
     if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
     {
-        m_impl->mainMenu->handleKeyboard(key, action);
+        m_impl->mainMenu->handleInput(key, action);
     }
 }
 
 void
 Application::handleMouseMove(double x, double y)
 {
-    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
-    {
-        m_impl->mainMenu->handleMouseMove(static_cast<float32>(x), static_cast<float32>(y));
-    }
+    (void) x;  // Unused - StartMenu doesn't support mouse
+    (void) y;  // Unused - StartMenu doesn't support mouse
+    // StartMenu uses keyboard-only navigation
 }
 
 void
 Application::handleMouseButton(int button, int action, int mods)
 {
-    (void) mods;  // Unused for now
-
-    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
-    {
-        double x, y;
-        m_impl->inputManager->getMousePosition(x, y);
-        m_impl->mainMenu->handleMouseClick(button, action, static_cast<float32>(x),
-                                           static_cast<float32>(y));
-    }
+    (void) button;  // Unused - StartMenu doesn't support mouse
+    (void) action;  // Unused - StartMenu doesn't support mouse
+    (void) mods;    // Unused - StartMenu doesn't support mouse
+    // StartMenu uses keyboard-only navigation
 }
 
 void
@@ -545,11 +533,12 @@ Application::handleWindowResize()
             m_impl->renderer->getTextRenderer()->updateScreenSize(currentWidth, currentHeight);
         }
 
-        // Update menu layout
         if (m_impl->mainMenu)
         {
-            m_impl->mainMenu->updateScreenSize(currentWidth, currentHeight);
+            m_impl->mainMenu->onWindowResize(currentWidth, currentHeight);
         }
+
+        // Note: StartMenu handles screen size internally on next render
     }
 }
 }  // namespace deadcode

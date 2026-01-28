@@ -201,6 +201,7 @@ void ClassName::shutdown() {
 - No C-style casts (use `static_cast`, `dynamic_cast`)
 - No magic numbers (use named constants)
 - No platform-specific code without `#ifdef` guards
+- **No creating documentation files** (README, guides, summaries, etc.) unless explicitly requested by the user
 
 ## Quick Reference
 

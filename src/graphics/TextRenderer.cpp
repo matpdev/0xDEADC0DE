@@ -271,6 +271,43 @@ TextRenderer::getTextWidth(const String& text, float32 scale) const
     return width;
 }
 
+float32
+TextRenderer::getCharWidth(float32 scale) const
+{
+    if (m_characters.empty())
+    {
+        return 0.0f;
+    }
+
+    auto it = m_characters.find('M');
+    if (it != m_characters.end())
+    {
+        return static_cast<float32>(it->second.advance >> 6) * scale;
+    }
+
+    return static_cast<float32>(m_characters.begin()->second.advance >> 6) * scale;
+}
+
+float32
+TextRenderer::getLineHeight(float32 scale) const
+{
+    if (m_characters.empty())
+    {
+        return 0.0f;
+    }
+
+    float32 maxHeight = 0.0f;
+    for (const auto& [ch, character] : m_characters)
+    {
+        if (character.size.y > maxHeight)
+        {
+            maxHeight = static_cast<float32>(character.size.y);
+        }
+    }
+
+    return maxHeight * scale * 1.2f;
+}
+
 void
 TextRenderer::setupRenderData()
 {

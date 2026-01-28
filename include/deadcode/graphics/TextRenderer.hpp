@@ -104,6 +104,10 @@ public:
      */
     float32 getTextWidth(const String& text, float32 scale) const;
 
+    float32 getCharWidth(float32 scale) const;
+
+    float32 getLineHeight(float32 scale) const;
+
     // Delete copy constructor and assignment
     TextRenderer(const TextRenderer&)            = delete;
     TextRenderer& operator=(const TextRenderer&) = delete;

@@ -20,7 +20,7 @@
 namespace deadcode
 {
 
-class Menu;
+class StartMenu;
 class InputManager;
 class SaveSystem;
 

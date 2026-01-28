@@ -236,7 +236,9 @@ add_library(deadcode_engine STATIC
   src/ui/UIManager.cpp
   src/ui/Console.cpp
   src/ui/TextBox.cpp
-  src/ui/Menu.cpp
+  src/ui/MenuFrame.cpp
+  src/ui/StartMenu.cpp
+  src/ui/ConfigMenu.cpp
 )
 
 target_include_directories(deadcode_engine
