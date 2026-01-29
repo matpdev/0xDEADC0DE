@@ -205,9 +205,12 @@ StartMenu::renderOptions(TextRenderer* textRenderer)
             optionText = "[" + optionText + "]";
         }
 
-        String fullLine   = prefix + optionText;
-        float32 lineWidth = textRenderer->getTextWidth(fullLine, scale);
-        float32 centerX   = screenCenterX - (lineWidth / 2.0f);
+        String fullLine     = prefix + optionText;
+        float32 prefixWidth = textRenderer->getTextWidth(prefix, scale);
+        float32 lineWidth   = textRenderer->getTextWidth(fullLine, scale);
+        float32 centerX     = screenCenterX - ((lineWidth + prefixWidth) / 2.0f);
+
+        Logger::info("CENTER X: {}", centerX);
 
         textRenderer->renderText(fullLine, centerX, contentY - (lineOffset * lineHeight * 2.0f),
                                  scale, optionColor);
