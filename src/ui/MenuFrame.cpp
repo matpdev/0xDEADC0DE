@@ -194,7 +194,7 @@ MenuFrame::getContentArea(TextRenderer* textRenderer, float32 scale, float32& ou
     float32 charHeight = getCharHeight(textRenderer, scale);  // Approximate
 
     outX = m_x + ((1 + m_padding) * charWidth);
-    outY = m_y - ((1 + m_padding) * charHeight);
+    outY = m_y - ((1 + m_padding) * charHeight * 2.0f);
 
     if (!m_title.empty())
     {

@@ -47,13 +47,12 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
         70,                                                 // Width in chars
         10                                                  // Height in chars
     );
-    m_logoFrame->setTitle("WELCOME TO", FrameAlign::CENTER);
     m_logoFrame->setColors(glm::vec3(0.0f, 1.0f, 1.0f),   // Cyan border
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
                            glm::vec3(0.0f, 1.0f, 0.0f));  // Green content
     m_logoFrame->setPadding(1);
     m_logoFrame->setScreenDimensions(screenWidth, screenHeight);
-    float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.4f);
+    float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.6f);
     m_logoFrame->setScale(logoScale);
 
     // Create main menu frame (center section)
@@ -64,7 +63,6 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
         40,                                                 // Width in chars
         12                                                  // Height in chars
     );
-    m_mainFrame->setTitle("MAIN MENU", FrameAlign::CENTER);
     // m_mainFrame->setFooter("Use ARROW KEYS to navigate, ENTER to select", FrameAlign::CENTER);
     m_mainFrame->setColors(glm::vec3(0.0f, 1.0f, 1.0f),   // Cyan border
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
@@ -72,7 +70,7 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
     m_mainFrame->setPadding(2);
     m_mainFrame->setScreenDimensions(screenWidth, screenHeight);
 
-    float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 1.0f);
+    float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 0.7f);
     m_mainFrame->setScale(menuScale);
 
     Logger::info("Start menu initialized");
@@ -209,8 +207,6 @@ StartMenu::renderOptions(TextRenderer* textRenderer)
         float32 prefixWidth = textRenderer->getTextWidth(prefix, scale);
         float32 lineWidth   = textRenderer->getTextWidth(fullLine, scale);
         float32 centerX     = screenCenterX - ((lineWidth + prefixWidth) / 2.0f);
-
-        Logger::info("CENTER X: {}", centerX);
 
         textRenderer->renderText(fullLine, centerX, contentY - (lineOffset * lineHeight * 2.0f),
                                  scale, optionColor);
