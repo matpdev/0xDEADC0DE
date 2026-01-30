@@ -84,7 +84,11 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
     glitchConfig.chromaticIntensity  = 2.0f;
 
     m_glitchEffect = std::make_unique<GlitchEffect>(glitchConfig);
-    m_glitchEffect->initialize();
+    if (!m_glitchEffect->initialize())
+    {
+        Logger::error("Failed to initialize glitch effect for start menu");
+        return false;
+    }
     m_glitchEffect->setScreenSize(screenWidth, screenHeight);
 
     Logger::info("Start menu initialized");
