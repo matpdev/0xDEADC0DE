@@ -10,6 +10,7 @@
 
 #include "deadcode/core/Logger.hpp"
 #include "deadcode/core/Version.hpp"
+#include "deadcode/graphics/GlitchEffect.hpp"
 #include "deadcode/graphics/TextRenderer.hpp"
 
 #include <GLFW/glfw3.h>
@@ -19,14 +20,8 @@ namespace deadcode
 
 StartMenu::StartMenu()
 {
-    // Initialize ASCII art logo for 0xDEADC0DE
-    m_logoLines = {"   ___        ____  _____    _    ____   ____ ___  ____  _____ ",
-                   "  / _ \\ __  _|  _ \\| ____|  / \\  |  _ \\ / ___/ _ \\|  _ \\| ____|",
-                   " | | | |\\ \\/ / | | |  _|   / _ \\ | | | | |  | | | | | | |  _|  ",
-                   " | |_| | >  <| |_| | |___ / ___ \\| |_| | |__| |_| | |_| | |___ ",
-                   "  \\___/ /_/\\_\\____/|_____/_/   \\_\\____/ \\____\\___/|____/|_____|",
-                   "",
-                   "              T E X T - B A S E D   R P G                       "};
+    // Simple text logo
+    m_logoLines = {"0xD3ADC0DE", "TEXT-BASED RPG"};
 }
 
 StartMenu::~StartMenu() = default;
@@ -39,22 +34,8 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
     m_screenWidth  = screenWidth;
     m_screenHeight = screenHeight;
 
-    // Create logo frame (top section)
-    m_logoFrame = std::make_unique<MenuFrame>(FrameStyle::DOUBLE);
-    m_logoFrame->setDimensions(
-        static_cast<float32>(screenWidth) / 2.0f - 500.0f,  // Center horizontally
-        static_cast<float32>(screenHeight) - 50.0f,         // Near top
-        70,                                                 // Width in chars
-        10                                                  // Height in chars
-    );
-    m_logoFrame->setTitle("WELCOME TO", FrameAlign::CENTER);
-    m_logoFrame->setColors(glm::vec3(0.0f, 1.0f, 1.0f),   // Cyan border
-                           glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
-                           glm::vec3(0.0f, 1.0f, 0.0f));  // Green content
-    m_logoFrame->setPadding(1);
-    m_logoFrame->setScreenDimensions(screenWidth, screenHeight);
-    float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.4f);
-    m_logoFrame->setScale(logoScale);
+    // Logo no longer needs a frame
+    m_logoFrame = nullptr;
 
     // Create main menu frame (center section)
     m_mainFrame = std::make_unique<MenuFrame>(FrameStyle::DOUBLE);
@@ -64,7 +45,6 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
         40,                                                 // Width in chars
         12                                                  // Height in chars
     );
-    m_mainFrame->setTitle("MAIN MENU", FrameAlign::CENTER);
     // m_mainFrame->setFooter("Use ARROW KEYS to navigate, ENTER to select", FrameAlign::CENTER);
     m_mainFrame->setColors(glm::vec3(0.0f, 1.0f, 1.0f),   // Cyan border
                            glm::vec3(1.0f, 1.0f, 0.0f),   // Yellow title
@@ -72,8 +52,44 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
     m_mainFrame->setPadding(2);
     m_mainFrame->setScreenDimensions(screenWidth, screenHeight);
 
-    float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 1.0f);
+    float32 menuScale = m_mainFrame->calculateDynamicScale(screenWidth, screenHeight, 0.7f);
     m_mainFrame->setScale(menuScale);
+
+    // Initialize glitch effect with enhanced settings
+    GlitchConfig glitchConfig;
+    glitchConfig.enabled               = true;
+    glitchConfig.frequency             = 0.5f;   // One glitch every 2 seconds
+    glitchConfig.duration              = 0.25f;  // Longer duration for complex effects
+    glitchConfig.idleTime              = 2.0f;
+    glitchConfig.characterDisplacement = true;
+    glitchConfig.maxJitter             = 6.0f;
+    glitchConfig.verticalJitter        = 3.0f;
+    glitchConfig.rgbSeparation         = true;
+    glitchConfig.rgbSeparationAmount   = 3.0f;
+    glitchConfig.glitchColor           = glm::vec3(1.0f, 0.0f, 0.5f);  // Magenta glitch
+    glitchConfig.intensity             = 0.9f;
+    glitchConfig.randomCorruption      = true;
+    glitchConfig.corruptionChance      = 0.08f;
+
+    // Enable advanced effects
+    glitchConfig.textSlicing         = true;
+    glitchConfig.sliceHeight         = 0.2f;
+    glitchConfig.maxSliceOffset      = 40.0f;
+    glitchConfig.textDuplication     = true;
+    glitchConfig.duplicationChance   = 0.2f;
+    glitchConfig.blockDisplacement   = true;
+    glitchConfig.blockSize           = 0.25f;
+    glitchConfig.maxBlockOffset      = 25.0f;
+    glitchConfig.chromaticAberration = true;
+    glitchConfig.chromaticIntensity  = 2.0f;
+
+    m_glitchEffect = std::make_unique<GlitchEffect>(glitchConfig);
+    if (!m_glitchEffect->initialize())
+    {
+        Logger::error("Failed to initialize glitch effect for start menu");
+        return false;
+    }
+    m_glitchEffect->setScreenSize(screenWidth, screenHeight);
 
     Logger::info("Start menu initialized");
     return true;
@@ -93,9 +109,15 @@ StartMenu::update(float deltaTime)
         m_blinkTimer = 0.0f;
     }
 
-    // Update glitch effect timer
+    // Update glitch effect
+    if (m_glitchEffect)
+    {
+        m_glitchEffect->update(deltaTime);
+    }
+
+    // Legacy glitch timer for backwards compatibility
     m_glitchTimer += deltaTime;
-    if (m_glitchTimer >= 3.0f)  // Reset every 3 seconds
+    if (m_glitchTimer >= 3.0f)
     {
         m_glitchTimer = 0.0f;
     }
@@ -120,41 +142,90 @@ StartMenu::render(TextRenderer* textRenderer)
 void
 StartMenu::renderLogo(TextRenderer* textRenderer)
 {
-    if (!m_logoFrame || !textRenderer)
+    if (!textRenderer)
         return;
 
-    // Render frame
-    float32 scale = m_logoFrame->m_scale;
-    m_logoFrame->render(textRenderer, scale);
-
-    // Render ASCII art logo
-    float32 contentX, contentY;
-    int32 contentWidth, contentHeight;
-    m_logoFrame->getContentArea(textRenderer, scale, contentX, contentY, contentWidth,
-                                contentHeight);
-
-    glm::vec3 logoColor = glm::vec3(0.0f, 1.0f, 0.0f);  // Green
-
-    // Add glitch effect randomly
-    if (m_glitchTimer > 2.8f)  // Glitch near end of cycle
-    {
-        logoColor = glm::vec3(1.0f, 0.0f, 0.0f);  // Red glitch
-    }
-
-    float32 lineHeight    = textRenderer->getLineHeight(scale);
     float32 screenCenterX = static_cast<float32>(m_screenWidth) / 2.0f;
 
-    int32 lineOffset = 0;
-    for (const auto& line : m_logoLines)
+    // Calculate responsive positioning and scaling
+    float32 heightScale = static_cast<float32>(m_screenHeight) / 1080.0f;  // Relative to 1080p
+    heightScale         = std::max(0.4f, std::min(heightScale, 2.0f));     // Clamp [0.4, 2.0]
+
+    // Position logo at 10% from top (responsive)
+    float32 topY = static_cast<float32>(m_screenHeight) * 0.90f;
+
+    // Render main title: 0xD3ADC0DE (large, bold)
+    const String& mainTitle = m_logoLines[0];
+    float32 mainTitleScale  = 1.25f *
+                             heightScale;  // Scale with screen height (halved for 96px font)
+    glm::vec3 mainTitleColor = glm::vec3(0.0f, 1.0f, 1.0f);  // Cyan
+
+    float32 mainTitleWidth = textRenderer->getTextWidth(mainTitle, mainTitleScale);
+    float32 mainTitleX     = screenCenterX - mainTitleWidth / 2.0f;
+
+    // Render with glitch effect if available
+    if (m_glitchEffect && m_glitchEffect->isActive())
     {
-        float32 lineWidth = textRenderer->getTextWidth(line, scale);
-        float32 centerX   = screenCenterX - (lineWidth) / 2.0f;
+        auto glitchCallback = [this](uint32 charIndex, uint32 charCount, float32& x, float32& y,
+                                     glm::vec3& color, bool& visible) {
+            CharacterGlitchState glitchState = m_glitchEffect->getCharacterState(charIndex,
+                                                                                 charCount);
+            x += glitchState.offset.x;
+            y += glitchState.offset.y;
+            color   = color * glitchState.colorMod;
+            visible = glitchState.visible;
 
-        textRenderer->renderText(line, centerX, contentY - lineOffset * lineHeight, scale,
-                                 logoColor);
+            // Note: Duplication is handled separately after main rendering
+            // since renderTextWithCallback processes one character at a time
+        };
 
-        lineOffset += 1;
+        textRenderer->renderTextWithCallback(mainTitle, mainTitleX, topY, mainTitleScale,
+                                             mainTitleColor, glitchCallback);
+
+        // Render duplicated characters as a second pass
+        if (m_glitchEffect && m_glitchEffect->isActive())
+        {
+            float32 currentX = mainTitleX;
+            for (uint32 i = 0; i < mainTitle.length(); ++i)
+            {
+                CharacterGlitchState glitchState =
+                    m_glitchEffect->getCharacterState(i, mainTitle.length());
+
+                if (glitchState.duplicate)
+                {
+                    // Render the duplicated character with offset and reduced alpha
+                    String charStr(1, mainTitle[i]);
+                    float32 dupX = currentX + glitchState.offset.x + glitchState.duplicateOffset.x;
+                    float32 dupY = topY + glitchState.offset.y + glitchState.duplicateOffset.y;
+                    glm::vec3 dupColor = mainTitleColor * glitchState.colorMod *
+                                         0.6f;  // Dimmer duplicate
+
+                    textRenderer->renderText(charStr, dupX, dupY, mainTitleScale, dupColor);
+                }
+
+                // Advance position (approximate character width)
+                currentX += textRenderer->getCharWidth(mainTitleScale);
+            }
+        }
     }
+    else
+    {
+        textRenderer->renderText(mainTitle, mainTitleX, topY, mainTitleScale, mainTitleColor);
+    }
+
+    // Render subtitle: TEXT-BASED RPG (small)
+    const String& subtitle = m_logoLines[1];
+    float32 subtitleScale  = 0.4f * heightScale;  // Scale with screen height (halved for 96px font)
+    glm::vec3 subtitleColor = glm::vec3(0.0f, 1.0f, 0.0f);  // Green
+
+    float32 subtitleWidth = textRenderer->getTextWidth(subtitle, subtitleScale);
+    float32 subtitleX     = screenCenterX - subtitleWidth / 2.0f;
+
+    // Responsive spacing between title and subtitle
+    float32 spacing   = 20.0f * heightScale;
+    float32 subtitleY = topY - textRenderer->getLineHeight(mainTitleScale) - spacing;
+
+    textRenderer->renderText(subtitle, subtitleX, subtitleY, subtitleScale, subtitleColor);
 }
 
 void
@@ -205,9 +276,10 @@ StartMenu::renderOptions(TextRenderer* textRenderer)
             optionText = "[" + optionText + "]";
         }
 
-        String fullLine   = prefix + optionText;
-        float32 lineWidth = textRenderer->getTextWidth(fullLine, scale);
-        float32 centerX   = screenCenterX - (lineWidth / 2.0f);
+        String fullLine     = prefix + optionText;
+        float32 prefixWidth = textRenderer->getTextWidth(prefix, scale);
+        float32 lineWidth   = textRenderer->getTextWidth(fullLine, scale);
+        float32 centerX     = screenCenterX - ((lineWidth + prefixWidth) / 2.0f);
 
         textRenderer->renderText(fullLine, centerX, contentY - (lineOffset * lineHeight * 2.0f),
                                  scale, optionColor);
@@ -222,7 +294,7 @@ StartMenu::renderFooter(TextRenderer* textRenderer)
     if (!textRenderer)
         return;
 
-    constexpr float32 FOOTER_SCALE   = 0.4f;
+    constexpr float32 FOOTER_SCALE   = 0.2f;  // Halved for 96px font
     constexpr glm::vec3 FOOTER_COLOR = glm::vec3(0.5f, 0.5f, 0.5f);
 
     // Render version info at bottom
@@ -386,30 +458,12 @@ StartMenu::onWindowResize(int32 screenWidth, int32 screenHeight)
     m_screenWidth  = screenWidth;
     m_screenHeight = screenHeight;
 
-    if (m_logoFrame)
+    if (m_glitchEffect)
     {
-        m_logoFrame->setScreenDimensions(screenWidth, screenHeight);
-        float32 logoScale = m_logoFrame->calculateDynamicScale(screenWidth, screenHeight, 0.4f);
-        m_logoFrame->setScale(logoScale);
-
-        int32 maxLogoLength = 0;
-        for (const auto& line : m_logoLines)
-        {
-            if (static_cast<int32>(line.length()) > maxLogoLength)
-            {
-                maxLogoLength = static_cast<int32>(line.length());
-            }
-        }
-
-        int32 frameWidth  = maxLogoLength + 4;
-        int32 frameHeight = static_cast<int32>(m_logoLines.size()) + 4;
-
-        m_logoFrame->setDimensions(static_cast<float32>(screenWidth) / 2.0f - (frameWidth * 0.8f),
-                                   static_cast<float32>(screenHeight) - 50.0f, frameWidth,
-                                   frameHeight);
-
-        Logger::debug("Logo frame scale updated to: {}", logoScale);
+        m_glitchEffect->setScreenSize(screenWidth, screenHeight);
     }
+
+    // Logo frame no longer needed
 
     if (m_mainFrame)
     {

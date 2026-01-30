@@ -15,7 +15,8 @@
     "nlohmann-json",
     "stb",
     "openal-soft",
-    "libvorbis"
+    "libvorbis",
+    "tweeny"
   ],
   "builtin-baseline": "01e159b519b7e791cc5bb3548663a26d9c0922a3",
   "overrides": [],

@@ -12,6 +12,7 @@
 #pragma once
 
 #include "deadcode/core/Types.hpp"
+#include "deadcode/graphics/GlitchEffect.hpp"
 #include "deadcode/ui/MenuFrame.hpp"
 
 #include <functional>
@@ -192,6 +193,9 @@ private:
     float32 m_blinkTimer{0.0f};
     bool m_blinkState{true};
     float32 m_glitchTimer{0.0f};
+
+    // Glitch effect
+    std::unique_ptr<GlitchEffect> m_glitchEffect;
 
     // ASCII art logo
     std::vector<String> m_logoLines;
