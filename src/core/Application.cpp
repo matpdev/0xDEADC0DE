@@ -271,8 +271,7 @@ Application::initializeRenderer()
     }
 
     // Load font
-    if (!m_impl->renderer->getTextRenderer()->loadFont(
-            "assets/fonts/JetBrainsMonoNerdFont-Regular.ttf", 48))
+    if (!m_impl->renderer->getTextRenderer()->loadFont("assets/fonts/PixelOperator-Bold.ttf", 52))
     {
         Logger::error("Failed to load font");
         return false;

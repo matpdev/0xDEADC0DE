@@ -88,6 +88,25 @@ public:
                     const glm::vec3& color);
 
     /**
+     * @brief Render text with per-character transformation callback
+     *
+     * Allows applying per-character effects like glitch displacement
+     *
+     * @param text Text string to render
+     * @param x X position in screen coordinates
+     * @param y Y position in screen coordinates
+     * @param scale Text scale factor
+     * @param color Base text color (RGB, each 0-1)
+     * @param charCallback Function called for each character with (charIndex, characterCount,
+     * baseX, baseY) returning (offsetX, offsetY, colorMod, visible)
+     */
+    void renderTextWithCallback(const String& text, float32 x, float32 y, float32 scale,
+                                const glm::vec3& color,
+                                std::function<void(uint32 charIndex, uint32 charCount, float32& x,
+                                                   float32& y, glm::vec3& color, bool& visible)>
+                                    charCallback);
+
+    /**
      * @brief Update screen dimensions (for window resize)
      *
      * @param width New screen width

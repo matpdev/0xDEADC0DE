@@ -16,6 +16,8 @@
 #include FT_FREETYPE_H
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <cmath>  // For std::round
+
 namespace deadcode
 {
 
@@ -143,8 +145,9 @@ TextRenderer::loadFont(const String& fontPath, uint32 fontSize)
     // Load first 128 ASCII characters
     for (unsigned char c = 0; c < 128; c++)
     {
-        // Load character glyph
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+        // Load character glyph with hinting for better quality
+        // FT_LOAD_TARGET_LIGHT provides crisp rendering with light hinting
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER | FT_LOAD_TARGET_LIGHT))
         {
             Logger::warn("Failed to load glyph for character: {}", static_cast<char>(c));
             continue;
@@ -157,11 +160,16 @@ TextRenderer::loadFont(const String& fontPath, uint32 fontSize)
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows,
                      0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
 
-        // Set texture options
+        // Set texture options for crisp rendering
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        // Use LINEAR_MIPMAP_LINEAR for minification (better quality when scaling down)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        // Use LINEAR for magnification (smooth when scaling up)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        // Generate mipmaps for better quality at different sizes
+        glGenerateMipmap(GL_TEXTURE_2D);
 
         // Store character for later use
         Character character = {texture,
@@ -204,11 +212,13 @@ TextRenderer::renderText(const String& text, float32 x, float32 y, float32 scale
 
         Character ch = it->second;
 
-        float32 xpos = x + ch.bearing.x * scale;
-        float32 ypos = y - (ch.size.y - ch.bearing.y) * scale;
+        // Round to integer pixel coordinates for crisp rendering
+        float32 xpos = std::round(x + ch.bearing.x * scale);
+        float32 ypos = std::round(y - (ch.size.y - ch.bearing.y) * scale);
 
-        float32 w = ch.size.x * scale;
-        float32 h = ch.size.y * scale;
+        // Round dimensions to integer pixels
+        float32 w = std::round(ch.size.x * scale);
+        float32 h = std::round(ch.size.y * scale);
 
         // Update VBO for each character
         float32 vertices[6][4] = {
@@ -234,6 +244,86 @@ TextRenderer::renderText(const String& text, float32 x, float32 y, float32 scale
 
         // Advance cursors for next glyph
         x += (ch.advance >> 6) * scale;  // Bitshift by 6 to get value in pixels
+    }
+
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void
+TextRenderer::renderTextWithCallback(
+    const String& text, float32 x, float32 y, float32 scale, const glm::vec3& color,
+    std::function<void(uint32, uint32, float32&, float32&, glm::vec3&, bool&)> charCallback)
+{
+    if (!m_initialized)
+        return;
+
+    // Activate corresponding render state
+    m_shader.use();
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(m_VAO);
+
+    uint32 charCount = static_cast<uint32>(text.length());
+    uint32 charIndex = 0;
+
+    // Iterate through all characters
+    for (auto c : text)
+    {
+        auto it = m_characters.find(c);
+        if (it == m_characters.end())
+        {
+            charIndex++;
+            continue;
+        }
+
+        Character ch = it->second;
+
+        float32 xpos = x + ch.bearing.x * scale;
+        float32 ypos = y - (ch.size.y - ch.bearing.y) * scale;
+
+        // Apply per-character callback
+        glm::vec3 charColor = color;
+        bool visible        = true;
+
+        if (charCallback)
+        {
+            charCallback(charIndex, charCount, xpos, ypos, charColor, visible);
+        }
+
+        if (visible)
+        {
+            float32 w = ch.size.x * scale;
+            float32 h = ch.size.y * scale;
+
+            // Update VBO for each character
+            float32 vertices[6][4] = {
+                {    xpos, ypos + h, 0.0f, 0.0f},
+                {    xpos,     ypos, 0.0f, 1.0f},
+                {xpos + w,     ypos, 1.0f, 1.0f},
+
+                {    xpos, ypos + h, 0.0f, 0.0f},
+                {xpos + w,     ypos, 1.0f, 1.0f},
+                {xpos + w, ypos + h, 1.0f, 0.0f}
+            };
+
+            // Set character-specific color
+            m_shader.setVec3("textColor", charColor);
+
+            // Render glyph texture over quad
+            glBindTexture(GL_TEXTURE_2D, ch.textureID);
+
+            // Update content of VBO memory
+            glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+            // Render quad
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+
+        // Advance cursors for next glyph
+        x += (ch.advance >> 6) * scale;  // Bitshift by 6 to get value in pixels
+        charIndex++;
     }
 
     glBindVertexArray(0);

@@ -27,7 +27,7 @@ main(int argc, char** argv)
     try
     {
         // Initialize logging first
-        if (!deadcode::Logger::initialize("deadcode.log", deadcode::LogLevel::INFO))
+        if (!deadcode::Logger::initialize("deadcode.log", deadcode::LogLevel::DEBUG))
         {
             std::cerr << "Failed to initialize logging system\n";
             return EXIT_FAILURE;

@@ -161,6 +161,7 @@ find_package(spdlog CONFIG REQUIRED)
 find_package(nlohmann_json 3.11.0 CONFIG REQUIRED)
 find_package(OpenAL CONFIG REQUIRED)
 find_package(Vorbis CONFIG REQUIRED)
+find_package(Tweeny CONFIG REQUIRED)
 
 # stb is header-only, handled in include paths
 
@@ -220,6 +221,7 @@ add_library(deadcode_engine STATIC
   src/graphics/Shader.cpp
   src/graphics/TextRenderer.cpp
   src/graphics/AnimationSystem.cpp
+  src/graphics/GlitchEffect.cpp
   src/graphics/EffectManager.cpp
 
   # Input
@@ -260,6 +262,7 @@ target_link_libraries(deadcode_engine
     nlohmann_json::nlohmann_json
     OpenAL::OpenAL
     Vorbis::vorbisfile
+    tweeny
     $<BUILD_INTERFACE:project_options>
     $<BUILD_INTERFACE:project_warnings>
 )
