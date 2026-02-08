@@ -1,43 +1,31 @@
 /**
  * @file TextRenderer.hpp
- * @brief Text rendering with FreeType fonts
+ * @brief Text rendering with Raylib fonts
  *
- * Manages font loading and text rendering using OpenGL and FreeType.
+ * Manages font loading and text rendering using Raylib.
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #pragma once
 
 #include "deadcode/core/Types.hpp"
-#include "deadcode/graphics/Shader.hpp"
 
 #include <glm/glm.hpp>
+#include <raylib.h>
 
-#include <map>
-#include <memory>
+#include <functional>
 #include <string>
 
 namespace deadcode
 {
 
 /**
- * @brief Character glyph information
- */
-struct Character
-{
-    uint32 textureID;    ///< OpenGL texture ID
-    glm::ivec2 size;     ///< Size of glyph
-    glm::ivec2 bearing;  ///< Offset from baseline to left/top of glyph
-    uint32 advance;      ///< Horizontal offset to next glyph
-};
-
-/**
- * @brief Text rendering system using FreeType
+ * @brief Text rendering system using Raylib
  *
  * Manages font loading and rendering text to screen using
- * OpenGL and FreeType library.
+ * Raylib's font API.
  */
 class TextRenderer
 {
@@ -132,17 +120,12 @@ public:
     TextRenderer& operator=(const TextRenderer&) = delete;
 
 private:
-    /**
-     * @brief Setup OpenGL buffers and vertex arrays
-     */
-    void setupRenderData();
-
-    std::map<char, Character> m_characters;
-    Shader m_shader;
-    uint32 m_VAO;
-    uint32 m_VBO;
-    glm::mat4 m_projection;
+    Font m_font;
+    float32 m_fontSize;
+    int32 m_screenWidth;
+    int32 m_screenHeight;
     bool m_initialized;
+    bool m_fontLoaded;
 };
 
 }  // namespace deadcode

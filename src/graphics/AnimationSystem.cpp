@@ -179,22 +179,22 @@ easeInOutQuint(float32 t)
 float32
 easeInSine(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    return 1.0f - std::cos((t * PI) / 2.0f);
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    return 1.0f - std::cos((t * MY_PI) / 2.0f);
 }
 
 float32
 easeOutSine(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    return std::sin((t * PI) / 2.0f);
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    return std::sin((t * MY_PI) / 2.0f);
 }
 
 float32
 easeInOutSine(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    return -(std::cos(PI * t) - 1.0f) / 2.0f;
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    return -(std::cos(MY_PI * t) - 1.0f) / 2.0f;
 }
 
 float32
@@ -242,8 +242,8 @@ easeInOutCirc(float32 t)
 float32
 easeInElastic(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    constexpr float32 c4 = (2.0f * PI) / 3.0f;
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    constexpr float32 c4 = (2.0f * MY_PI) / 3.0f;
     if (t == 0.0f)
         return 0.0f;
     if (t == 1.0f)
@@ -254,8 +254,8 @@ easeInElastic(float32 t)
 float32
 easeOutElastic(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    constexpr float32 c4 = (2.0f * PI) / 3.0f;
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    constexpr float32 c4 = (2.0f * MY_PI) / 3.0f;
     if (t == 0.0f)
         return 0.0f;
     if (t == 1.0f)
@@ -266,8 +266,8 @@ easeOutElastic(float32 t)
 float32
 easeInOutElastic(float32 t)
 {
-    constexpr float32 PI = 3.14159265358979323846f;
-    constexpr float32 c5 = (2.0f * PI) / 4.5f;
+    constexpr float32 MY_PI = 3.14159265358979323846f;
+    constexpr float32 c5 = (2.0f * MY_PI) / 4.5f;
     if (t == 0.0f)
         return 0.0f;
     if (t == 1.0f)

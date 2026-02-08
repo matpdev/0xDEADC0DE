@@ -20,7 +20,7 @@ set(VCPKG_MANIFEST_MODE ON)
 # -----------------------------------------------------------------------------
 project(DeadCodeRPG
   VERSION 0.1.0
-  DESCRIPTION "0xDEADC0DE - A text-based RPG with OpenGL animations"
+  DESCRIPTION "0xDEADC0DE - A text-based RPG with Raylib rendering"
   HOMEPAGE_URL "https://github.com/0xDEADC0DE/rpg"
   LANGUAGES CXX C
 )
@@ -152,15 +152,11 @@ endif()
 # -----------------------------------------------------------------------------
 # Find Dependencies (via vcpkg)
 # -----------------------------------------------------------------------------
-find_package(OpenGL REQUIRED)
-find_package(glfw3 CONFIG REQUIRED)
-find_package(GLEW REQUIRED)
+find_package(raylib CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)  # Raylib depends on GLFW
 find_package(glm CONFIG REQUIRED)
-find_package(Freetype REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 find_package(nlohmann_json 3.11.0 CONFIG REQUIRED)
-find_package(OpenAL CONFIG REQUIRED)
-find_package(Vorbis CONFIG REQUIRED)
 find_package(Tweeny CONFIG REQUIRED)
 
 # stb is header-only, handled in include paths
@@ -218,7 +214,6 @@ add_library(deadcode_engine STATIC
   # Graphics
   src/graphics/Window.cpp
   src/graphics/Renderer.cpp
-  src/graphics/Shader.cpp
   src/graphics/TextRenderer.cpp
   src/graphics/AnimationSystem.cpp
   src/graphics/GlitchEffect.cpp
@@ -253,15 +248,11 @@ target_include_directories(deadcode_engine
 
 target_link_libraries(deadcode_engine
   PUBLIC
-    OpenGL::GL
-    glfw
-    GLEW::GLEW
+    raylib
+    glfw  # Required by Raylib
     glm::glm
-    Freetype::Freetype
     spdlog::spdlog
     nlohmann_json::nlohmann_json
-    OpenAL::OpenAL
-    Vorbis::vorbisfile
     tweeny
     $<BUILD_INTERFACE:project_options>
     $<BUILD_INTERFACE:project_warnings>

@@ -3,7 +3,7 @@
  * @brief Implementation of Renderer class
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #include "deadcode/graphics/Renderer.hpp"
@@ -11,7 +11,7 @@
 #include "deadcode/core/Logger.hpp"
 #include "deadcode/graphics/Window.hpp"
 
-#include <GL/glew.h>
+#include <raylib.h>
 
 namespace deadcode
 {
@@ -44,10 +44,6 @@ Renderer::initialize(Window* window)
         return false;
     }
 
-    // Set default OpenGL state
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     m_initialized = true;
     Logger::info("Renderer initialized successfully");
     return true;
@@ -73,18 +69,21 @@ Renderer::shutdown()
 void
 Renderer::beginFrame()
 {
-    // Clear screen
-    glClearColor(m_clearColor.r, m_clearColor.g, m_clearColor.b, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    // Begin Raylib drawing
+    BeginDrawing();
+
+    // Clear screen with background color
+    Color clearColor = {static_cast<uint8>(m_clearColor.r * 255.0f),
+                        static_cast<uint8>(m_clearColor.g * 255.0f),
+                        static_cast<uint8>(m_clearColor.b * 255.0f), 255};
+    ClearBackground(clearColor);
 }
 
 void
 Renderer::endFrame()
 {
-    if (m_window)
-    {
-        m_window->swapBuffers();
-    }
+    // End Raylib drawing
+    EndDrawing();
 }
 
 void

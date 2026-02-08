@@ -3,31 +3,30 @@
  * @brief Implementation of Window class
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #include "deadcode/graphics/Window.hpp"
 
 #include "deadcode/core/Logger.hpp"
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <raylib.h>
 
 #include <stdexcept>
 
 namespace deadcode
 {
 
-Window::Window() : m_window(nullptr) {}
+Window::Window() : m_isOpen(false) {}
 
 Window::~Window()
 {
     close();
 }
 
-Window::Window(Window&& other) noexcept : m_window(other.m_window), m_config(other.m_config)
+Window::Window(Window&& other) noexcept : m_isOpen(other.m_isOpen), m_config(other.m_config)
 {
-    other.m_window = nullptr;
+    other.m_isOpen = false;
 }
 
 Window&
@@ -36,9 +35,9 @@ Window::operator=(Window&& other) noexcept
     if (this != &other)
     {
         close();
-        m_window       = other.m_window;
+        m_isOpen       = other.m_isOpen;
         m_config       = other.m_config;
-        other.m_window = nullptr;
+        other.m_isOpen = false;
     }
     return *this;
 }
@@ -50,52 +49,36 @@ Window::create(const WindowConfig& config)
 
     Logger::info("Creating window: {}x{}", config.width, config.height);
 
-    // Set OpenGL version hints
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.glMajorVersion);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.glMinorVersion);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // Initialize Raylib window
+    InitWindow(config.width, config.height, config.title.c_str());
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-
-    // Create window
-    m_window = glfwCreateWindow(config.width, config.height, config.title.c_str(),
-                                config.fullscreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
-
-    if (!m_window)
+    // Check if window was created successfully
+    if (!IsWindowReady())
     {
-        Logger::error("Failed to create GLFW window");
+        Logger::error("Failed to create Raylib window");
         return false;
     }
 
-    // Make the window's context current
-    glfwMakeContextCurrent(m_window);
+    m_isOpen = true;
 
-    // Setup GLEW
-    if (!setupOpenGL())
+    // Set target FPS
+    SetTargetFPS(config.targetFPS);
+
+    // Set fullscreen if requested
+    if (config.fullscreen)
     {
-        close();
-        return false;
+        ToggleFullscreen();
+        m_config.fullscreen = true;
     }
 
-    // Set vsync
-    glfwSwapInterval(config.vsync ? 1 : 0);
-
-    // Set callbacks
-    glfwSetFramebufferSizeCallback(m_window, framebufferSizeCallback);
-    glfwSetWindowUserPointer(m_window, this);
-
-    // Get actual framebuffer size (may differ from window size on high DPI)
-    int fbWidth, fbHeight;
-    glfwGetFramebufferSize(m_window, &fbWidth, &fbHeight);
-    glViewport(0, 0, fbWidth, fbHeight);
+    // Enable vsync (Raylib handles this through SetTargetFPS and window flags)
+    if (!config.vsync)
+    {
+        SetWindowState(FLAG_VSYNC_HINT);
+    }
 
     Logger::info("Window created successfully");
-    Logger::info("OpenGL Version: {}", reinterpret_cast<const char*>(glGetString(GL_VERSION)));
-    Logger::info("GLSL Version: {}",
-                 reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)));
-    Logger::info("Renderer: {}", reinterpret_cast<const char*>(glGetString(GL_RENDERER)));
+    Logger::info("Screen dimensions: {}x{}", GetScreenWidth(), GetScreenHeight());
 
     return true;
 }
@@ -103,49 +86,43 @@ Window::create(const WindowConfig& config)
 void
 Window::close()
 {
-    if (m_window)
+    if (m_isOpen)
     {
         Logger::info("Closing window");
-        glfwDestroyWindow(m_window);
-        m_window = nullptr;
+        CloseWindow();
+        m_isOpen = false;
     }
 }
 
 bool
 Window::shouldClose() const
 {
-    return m_window && glfwWindowShouldClose(m_window);
+    return m_isOpen && WindowShouldClose();
 }
 
 void
 Window::swapBuffers()
 {
-    if (m_window)
-    {
-        glfwSwapBuffers(m_window);
-    }
+    // No-op for Raylib - handled internally by BeginDrawing/EndDrawing
+    // Kept for API compatibility with old GLFW code
 }
 
 int32
 Window::getWidth() const
 {
-    if (!m_window)
+    if (!m_isOpen)
         return 0;
 
-    int width, height;
-    glfwGetWindowSize(m_window, &width, &height);
-    return static_cast<int32>(width);
+    return static_cast<int32>(GetScreenWidth());
 }
 
 int32
 Window::getHeight() const
 {
-    if (!m_window)
+    if (!m_isOpen)
         return 0;
 
-    int width, height;
-    glfwGetWindowSize(m_window, &width, &height);
-    return static_cast<int32>(height);
+    return static_cast<int32>(GetScreenHeight());
 }
 
 float32
@@ -167,51 +144,10 @@ void
 Window::setTitle(const String& title)
 {
     m_config.title = title;
-    if (m_window)
+    if (m_isOpen)
     {
-        glfwSetWindowTitle(m_window, title.c_str());
+        SetWindowTitle(title.c_str());
     }
-}
-
-GLFWwindow*
-Window::getNativeWindow() const
-{
-    return m_window;
-}
-
-bool
-Window::setupOpenGL()
-{
-    // Initialize GLEW
-    glewExperimental = GL_TRUE;
-    GLenum err       = glewInit();
-    if (err != GLEW_OK)
-    {
-        Logger::error("Failed to initialize GLEW: {}",
-                      reinterpret_cast<const char*>(glewGetErrorString(err)));
-        return false;
-    }
-
-    // Check OpenGL version
-    if (!GLEW_VERSION_3_3)
-    {
-        Logger::error("OpenGL 3.3 or higher is required");
-        return false;
-    }
-
-    // Enable blending for text rendering
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    return true;
-}
-
-void
-Window::framebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
-    (void) window;  // Unused
-    glViewport(0, 0, width, height);
-    Logger::debug("Framebuffer resized: {}x{}", width, height);
 }
 
 }  // namespace deadcode

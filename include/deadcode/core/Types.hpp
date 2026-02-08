@@ -16,6 +16,9 @@
 #include <string>
 #include <vector>
 
+#include <glm/glm.hpp>
+#include <raylib.h>
+
 namespace deadcode
 {
 
@@ -59,6 +62,57 @@ using SharedPtr = std::shared_ptr<T>;
 
 template <typename T>
 using WeakPtr = std::weak_ptr<T>;
+
+// ============================================================================
+// Type Conversion Utilities (GLM <-> Raylib)
+// ============================================================================
+
+/**
+ * @brief Convert glm::vec2 to Raylib Vector2
+ */
+inline Vector2
+toRaylib(const glm::vec2& v)
+{
+    return Vector2{v.x, v.y};
+}
+
+/**
+ * @brief Convert glm::vec3 (0-1) to Raylib Color
+ */
+inline Color
+toRaylib(const glm::vec3& c)
+{
+    return Color{static_cast<uint8>(c.r * 255.0f), static_cast<uint8>(c.g * 255.0f),
+                 static_cast<uint8>(c.b * 255.0f), 255};
+}
+
+/**
+ * @brief Convert glm::vec4 (0-1) to Raylib Color
+ */
+inline Color
+toRaylib(const glm::vec4& c)
+{
+    return Color{static_cast<uint8>(c.r * 255.0f), static_cast<uint8>(c.g * 255.0f),
+                 static_cast<uint8>(c.b * 255.0f), static_cast<uint8>(c.a * 255.0f)};
+}
+
+/**
+ * @brief Convert Raylib Vector2 to glm::vec2
+ */
+inline glm::vec2
+toGLM(const Vector2& v)
+{
+    return glm::vec2{v.x, v.y};
+}
+
+/**
+ * @brief Convert Raylib Color to glm::vec4 (0-1)
+ */
+inline glm::vec4
+toGLM(const Color& c)
+{
+    return glm::vec4{c.r / 255.0f, c.g / 255.0f, c.b / 255.0f, c.a / 255.0f};
+}
 
 // ============================================================================
 // Forward Declarations

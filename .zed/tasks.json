@@ -1,0 +1,194 @@
+[
+  {
+    "label": "Build (Debug)",
+    "command": "./scripts/build.sh",
+    "args": ["debug"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Build (Release)",
+    "command": "./scripts/build.sh",
+    "args": ["release"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Build Clean (Debug)",
+    "command": "./scripts/build.sh",
+    "args": ["debug", "--clean"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Build Clean (Release)",
+    "command": "./scripts/build.sh",
+    "args": ["release", "--clean"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Build with Tests (Debug)",
+    "command": "./scripts/build.sh",
+    "args": ["debug", "--tests"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Build with Sanitizers (Debug)",
+    "command": "./scripts/build.sh",
+    "args": ["debug", "--sanitizers"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Run Game",
+    "command": "./scripts/run.sh",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["run"]
+  },
+  {
+    "label": "Format Code",
+    "command": "./scripts/format.sh",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Check Formatting",
+    "command": "./scripts/format.sh",
+    "args": ["--check"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Lint (clang-tidy)",
+    "command": "./scripts/lint.sh",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Run Tests",
+    "command": "./scripts/test.sh",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["test"]
+  },
+  {
+    "label": "CMake Configure (Debug)",
+    "command": "cmake",
+    "args": ["-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Debug", "-DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "CMake Configure (Release)",
+    "command": "cmake",
+    "args": ["-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Release", "-DCMAKE_TOOLCHAIN_FILE=$VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "CMake Build",
+    "command": "cmake",
+    "args": ["--build", "build", "-j"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["build"]
+  },
+  {
+    "label": "Setup Zed Config",
+    "command": "./scripts/setup-zed.sh",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Debug: Build and Run with GDB",
+    "command": "sh",
+    "args": [
+      "-c",
+      "./scripts/build.sh debug && gdb -ex run ./build/bin/deadcode_rpg"
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["debug"]
+  },
+  {
+    "label": "Debug: Build for Debugging",
+    "command": "./scripts/build.sh",
+    "args": ["debug"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["debug", "build"]
+  },
+  {
+    "label": "Debug: Launch with GDB",
+    "command": "gdb",
+    "args": [
+      "-ex",
+      "set confirm off",
+      "-ex",
+      "break main",
+      "-ex",
+      "run",
+      "./build/bin/deadcode_rpg"
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["debug"]
+  },
+  {
+    "label": "Debug: Launch with GDB (TUI mode)",
+    "command": "gdb",
+    "args": [
+      "-tui",
+      "-ex",
+      "break main",
+      "-ex",
+      "run",
+      "./build/bin/deadcode_rpg"
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["debug"]
+  },
+  {
+    "label": "Debug: Attach GDB to Running Process",
+    "command": "sh",
+    "args": [
+      "-c",
+      "PID=$(pgrep -n deadcode_rpg); if [ -n \"$PID\" ]; then gdb -p $PID; else echo 'No deadcode_rpg process found'; fi"
+    ],
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "tags": ["debug"]
+  }
+]
