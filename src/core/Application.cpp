@@ -8,6 +8,7 @@
 
 #include "deadcode/core/Application.hpp"
 
+#include "deadcode/audio/AudioManager.hpp"
 #include "deadcode/core/Config.hpp"
 #include "deadcode/core/Logger.hpp"
 #include "deadcode/core/Version.hpp"
@@ -18,7 +19,7 @@
 #include "deadcode/input/InputManager.hpp"
 #include "deadcode/ui/StartMenu.hpp"
 
-#include <GLFW/glfw3.h>
+#include <raylib.h>
 
 #include <chrono>
 #include <thread>
@@ -33,6 +34,7 @@ struct Application::Impl
     UniquePtr<Window> window;
     UniquePtr<Renderer> renderer;
     UniquePtr<InputManager> inputManager;
+    UniquePtr<AudioManager> audioManager;
     UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
 
@@ -72,13 +74,6 @@ Application::initialize(int argc, char** argv)
     (void) argv;  // Unused for now
 
     Logger::info("Initializing application...");
-
-    // Initialize GLFW
-    if (!glfwInit())
-    {
-        Logger::error("Failed to initialize GLFW");
-        return false;
-    }
 
     if (!initializeLogger())
     {
@@ -155,12 +150,18 @@ Application::run()
         // Check for window resize
         handleWindowResize();
 
+        // Poll input events (Raylib uses polling instead of callbacks)
+        if (m_impl->inputManager)
+        {
+            m_impl->inputManager->pollEvents();
+        }
+
         processInput(m_impl->deltaTime);
         update(m_impl->deltaTime);
         render(m_impl->deltaTime);
-        syncFrameRate();
 
-        glfwPollEvents();
+        // Raylib handles frame timing internally via SetTargetFPS
+        // No need for manual syncFrameRate
     }
 
     m_running = false;
@@ -173,9 +174,25 @@ Application::shutdown()
     Logger::info("Shutting down application...");
 
     // Shutdown subsystems in reverse order
-    // TODO: Implement subsystem shutdown
+    if (m_impl->audioManager)
+    {
+        m_impl->audioManager->shutdown();
+    }
 
-    glfwTerminate();
+    if (m_impl->inputManager)
+    {
+        m_impl->inputManager->shutdown();
+    }
+
+    if (m_impl->renderer)
+    {
+        m_impl->renderer->shutdown();
+    }
+
+    if (m_impl->window)
+    {
+        m_impl->window->close();
+    }
 
     m_initialized = false;
     Logger::info("Application shutdown complete");
@@ -185,6 +202,7 @@ void
 Application::requestExit()
 {
     Logger::info("Exit requested");
+
     m_exitRequested = true;
 }
 
@@ -243,10 +261,11 @@ Application::initializeWindow()
     m_impl->window = std::make_unique<Window>();
 
     WindowConfig config;
-    config.title  = Version::getGameTitleWithVersion() + " - Text-Based RPG";
-    config.width  = 800;
-    config.height = 600;
-    config.vsync  = true;
+    config.title     = Version::getGameTitleWithVersion() + " - Text-Based RPG";
+    config.width     = 800;
+    config.height    = 600;
+    config.vsync     = true;
+    config.targetFPS = m_targetFPS;
 
     if (!m_impl->window->create(config))
     {
@@ -314,7 +333,15 @@ bool
 Application::initializeAudio()
 {
     Logger::info("Initializing audio system...");
-    // TODO: Implement audio initialization
+
+    m_impl->audioManager = std::make_unique<AudioManager>();
+
+    if (!m_impl->audioManager->initialize())
+    {
+        Logger::error("Failed to initialize audio manager");
+        return false;
+    }
+
     return true;
 }
 
@@ -358,23 +385,20 @@ Application::processInput(float deltaTime)
 {
     (void) deltaTime;  // Unused for now
 
-    // Input is handled via callbacks
+    // Input is handled via callbacks (now triggered by pollEvents)
     // Check for ESC key to exit
-    if (m_impl->window->getNativeWindow())
+    if (IsKeyPressed(KEY_ESCAPE))
     {
-        if (glfwGetKey(m_impl->window->getNativeWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        if (m_gameState == GameState::Playing)
         {
-            if (m_gameState == GameState::Playing)
-            {
-                // Return to main menu from game
-                m_gameState = GameState::MainMenu;
-                Logger::info("Returned to main menu");
-            }
-            else if (m_gameState == GameState::MainMenu)
-            {
-                // Exit from main menu
-                requestExit();
-            }
+            // Return to main menu from game
+            m_gameState = GameState::MainMenu;
+            Logger::info("Returned to main menu");
+        }
+        else if (m_gameState == GameState::MainMenu)
+        {
+            // Exit from main menu
+            requestExit();
         }
     }
 }

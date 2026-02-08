@@ -3,25 +3,22 @@
  * @brief Implementation of TextRenderer class
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #include "deadcode/graphics/TextRenderer.hpp"
 
 #include "deadcode/core/Logger.hpp"
 
-#include <GL/glew.h>
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include <glm/gtc/matrix_transform.hpp>
-
-#include <cmath>  // For std::round
+#include <raylib.h>
 
 namespace deadcode
 {
 
-TextRenderer::TextRenderer() : m_VAO(0), m_VBO(0), m_initialized(false) {}
+TextRenderer::TextRenderer()
+    : m_fontSize(0.0f), m_screenWidth(0), m_screenHeight(0), m_initialized(false), m_fontLoaded(false)
+{
+}
 
 TextRenderer::~TextRenderer()
 {
@@ -33,51 +30,8 @@ TextRenderer::initialize(int32 screenWidth, int32 screenHeight)
 {
     Logger::info("Initializing TextRenderer...");
 
-    // Create shader for text rendering
-    const String vertexShaderSource = R"(
-#version 330 core
-layout (location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>
-out vec2 TexCoords;
-
-uniform mat4 projection;
-
-void main()
-{
-    gl_Position = projection * vec4(vertex.xy, 0.0, 1.0);
-    TexCoords = vertex.zw;
-}
-)";
-
-    const String fragmentShaderSource = R"(
-#version 330 core
-in vec2 TexCoords;
-out vec4 color;
-
-uniform sampler2D text;
-uniform vec3 textColor;
-
-void main()
-{
-    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);
-    color = vec4(textColor, 1.0) * sampled;
-}
-)";
-
-    if (!m_shader.loadFromSource(vertexShaderSource, fragmentShaderSource))
-    {
-        Logger::error("Failed to create text shader");
-        return false;
-    }
-
-    // Setup projection matrix
-    m_projection = glm::ortho(0.0f, static_cast<float32>(screenWidth), 0.0f,
-                              static_cast<float32>(screenHeight));
-
-    m_shader.use();
-    m_shader.setMat4("projection", m_projection);
-
-    // Setup rendering data
-    setupRenderData();
+    m_screenWidth  = screenWidth;
+    m_screenHeight = screenHeight;
 
     m_initialized = true;
     Logger::info("TextRenderer initialized successfully");
@@ -92,23 +46,10 @@ TextRenderer::shutdown()
 
     Logger::info("Shutting down TextRenderer...");
 
-    // Delete character textures
-    for (auto& pair : m_characters)
+    if (m_fontLoaded)
     {
-        glDeleteTextures(1, &pair.second.textureID);
-    }
-    m_characters.clear();
-
-    // Delete OpenGL resources
-    if (m_VBO != 0)
-    {
-        glDeleteBuffers(1, &m_VBO);
-        m_VBO = 0;
-    }
-    if (m_VAO != 0)
-    {
-        glDeleteVertexArrays(1, &m_VAO);
-        m_VAO = 0;
+        UnloadFont(m_font);
+        m_fontLoaded = false;
     }
 
     m_initialized = false;
@@ -119,73 +60,25 @@ TextRenderer::loadFont(const String& fontPath, uint32 fontSize)
 {
     Logger::info("Loading font: {} (size: {})", fontPath, fontSize);
 
-    // Initialize FreeType
-    FT_Library ft;
-    if (FT_Init_FreeType(&ft))
+    // Unload previous font if any
+    if (m_fontLoaded)
     {
-        Logger::error("Failed to initialize FreeType library");
-        return false;
+        UnloadFont(m_font);
+        m_fontLoaded = false;
     }
 
-    // Load font face
-    FT_Face face;
-    if (FT_New_Face(ft, fontPath.c_str(), 0, &face))
+    // Load font with Raylib
+    m_font     = LoadFontEx(fontPath.c_str(), static_cast<int>(fontSize), nullptr, 0);
+    m_fontSize = static_cast<float32>(fontSize);
+
+    // Check if font loaded successfully
+    if (m_font.texture.id == 0)
     {
         Logger::error("Failed to load font: {}", fontPath);
-        FT_Done_FreeType(ft);
         return false;
     }
 
-    // Set font size
-    FT_Set_Pixel_Sizes(face, 0, fontSize);
-
-    // Disable byte-alignment restriction
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // Load first 128 ASCII characters
-    for (unsigned char c = 0; c < 128; c++)
-    {
-        // Load character glyph with hinting for better quality
-        // FT_LOAD_TARGET_LIGHT provides crisp rendering with light hinting
-        if (FT_Load_Char(face, c, FT_LOAD_RENDER | FT_LOAD_TARGET_LIGHT))
-        {
-            Logger::warn("Failed to load glyph for character: {}", static_cast<char>(c));
-            continue;
-        }
-
-        // Generate texture
-        uint32 texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, face->glyph->bitmap.width, face->glyph->bitmap.rows,
-                     0, GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
-
-        // Set texture options for crisp rendering
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        // Use LINEAR_MIPMAP_LINEAR for minification (better quality when scaling down)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        // Use LINEAR for magnification (smooth when scaling up)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // Generate mipmaps for better quality at different sizes
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        // Store character for later use
-        Character character = {texture,
-                               glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-                               glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                               static_cast<uint32>(face->glyph->advance.x)};
-
-        m_characters.insert(std::pair<char, Character>(c, character));
-    }
-
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    // Cleanup FreeType
-    FT_Done_Face(face);
-    FT_Done_FreeType(ft);
-
+    m_fontLoaded = true;
     Logger::info("Font loaded successfully: {}", fontPath);
     return true;
 }
@@ -194,60 +87,14 @@ void
 TextRenderer::renderText(const String& text, float32 x, float32 y, float32 scale,
                          const glm::vec3& color)
 {
-    if (!m_initialized)
+    if (!m_initialized || !m_fontLoaded)
         return;
 
-    // Activate corresponding render state
-    m_shader.use();
-    m_shader.setVec3("textColor", color);
-    glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(m_VAO);
+    Color raylibColor = toRaylib(color);
+    float32 fontSize  = m_fontSize * scale;
+    Vector2 position  = {x, y};
 
-    // Iterate through all characters
-    for (auto c : text)
-    {
-        auto it = m_characters.find(c);
-        if (it == m_characters.end())
-            continue;
-
-        Character ch = it->second;
-
-        // Round to integer pixel coordinates for crisp rendering
-        float32 xpos = std::round(x + ch.bearing.x * scale);
-        float32 ypos = std::round(y - (ch.size.y - ch.bearing.y) * scale);
-
-        // Round dimensions to integer pixels
-        float32 w = std::round(ch.size.x * scale);
-        float32 h = std::round(ch.size.y * scale);
-
-        // Update VBO for each character
-        float32 vertices[6][4] = {
-            {    xpos, ypos + h, 0.0f, 0.0f},
-            {    xpos,     ypos, 0.0f, 1.0f},
-            {xpos + w,     ypos, 1.0f, 1.0f},
-
-            {    xpos, ypos + h, 0.0f, 0.0f},
-            {xpos + w,     ypos, 1.0f, 1.0f},
-            {xpos + w, ypos + h, 1.0f, 0.0f}
-        };
-
-        // Render glyph texture over quad
-        glBindTexture(GL_TEXTURE_2D, ch.textureID);
-
-        // Update content of VBO memory
-        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-        // Render quad
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        // Advance cursors for next glyph
-        x += (ch.advance >> 6) * scale;  // Bitshift by 6 to get value in pixels
-    }
-
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    DrawTextEx(m_font, text.c_str(), position, fontSize, 1.0f, raylibColor);
 }
 
 void
@@ -255,31 +102,24 @@ TextRenderer::renderTextWithCallback(
     const String& text, float32 x, float32 y, float32 scale, const glm::vec3& color,
     std::function<void(uint32, uint32, float32&, float32&, glm::vec3&, bool&)> charCallback)
 {
-    if (!m_initialized)
+    if (!m_initialized || !m_fontLoaded)
         return;
-
-    // Activate corresponding render state
-    m_shader.use();
-    glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(m_VAO);
 
     uint32 charCount = static_cast<uint32>(text.length());
     uint32 charIndex = 0;
+    float32 fontSize = m_fontSize * scale;
+
+    float32 currentX = x;
 
     // Iterate through all characters
-    for (auto c : text)
+    for (char c : text)
     {
-        auto it = m_characters.find(c);
-        if (it == m_characters.end())
-        {
-            charIndex++;
-            continue;
-        }
+        // Get character metrics
+        int codepoint      = static_cast<int>(c);
+        GlyphInfo glyphInfo = GetGlyphInfo(m_font, codepoint);
 
-        Character ch = it->second;
-
-        float32 xpos = x + ch.bearing.x * scale;
-        float32 ypos = y - (ch.size.y - ch.bearing.y) * scale;
+        float32 charX = currentX;
+        float32 charY = y;
 
         // Apply per-character callback
         glm::vec3 charColor = color;
@@ -287,57 +127,36 @@ TextRenderer::renderTextWithCallback(
 
         if (charCallback)
         {
-            charCallback(charIndex, charCount, xpos, ypos, charColor, visible);
+            charCallback(charIndex, charCount, charX, charY, charColor, visible);
         }
 
         if (visible)
         {
-            float32 w = ch.size.x * scale;
-            float32 h = ch.size.y * scale;
+            Color raylibColor = toRaylib(charColor);
+            Vector2 position  = {charX, charY};
 
-            // Update VBO for each character
-            float32 vertices[6][4] = {
-                {    xpos, ypos + h, 0.0f, 0.0f},
-                {    xpos,     ypos, 0.0f, 1.0f},
-                {xpos + w,     ypos, 1.0f, 1.0f},
-
-                {    xpos, ypos + h, 0.0f, 0.0f},
-                {xpos + w,     ypos, 1.0f, 1.0f},
-                {xpos + w, ypos + h, 1.0f, 0.0f}
-            };
-
-            // Set character-specific color
-            m_shader.setVec3("textColor", charColor);
-
-            // Render glyph texture over quad
-            glBindTexture(GL_TEXTURE_2D, ch.textureID);
-
-            // Update content of VBO memory
-            glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-            // Render quad
-            glDrawArrays(GL_TRIANGLES, 0, 6);
+            // Render single character
+            DrawTextCodepoint(m_font, codepoint, position, fontSize, raylibColor);
         }
 
-        // Advance cursors for next glyph
-        x += (ch.advance >> 6) * scale;  // Bitshift by 6 to get value in pixels
+        // Advance position for next character
+        // Scale factor accounts for the base font size
+        float32 advance = static_cast<float32>(glyphInfo.advanceX);
+        if (advance == 0.0f)
+        {
+            advance = static_cast<float32>(glyphInfo.image.width);
+        }
+        currentX += advance * scale;
+
         charIndex++;
     }
-
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void
 TextRenderer::updateScreenSize(int32 width, int32 height)
 {
-    m_projection = glm::ortho(0.0f, static_cast<float32>(width), 0.0f,
-                              static_cast<float32>(height));
-
-    m_shader.use();
-    m_shader.setMat4("projection", m_projection);
+    m_screenWidth  = width;
+    m_screenHeight = height;
 
     Logger::debug("TextRenderer screen size updated: {}x{}", width, height);
 }
@@ -345,75 +164,41 @@ TextRenderer::updateScreenSize(int32 width, int32 height)
 float32
 TextRenderer::getTextWidth(const String& text, float32 scale) const
 {
-    float32 width = 0.0f;
+    if (!m_fontLoaded)
+        return 0.0f;
 
-    for (char c : text)
-    {
-        auto it = m_characters.find(c);
-        if (it != m_characters.end())
-        {
-            const Character& ch = it->second;
-            // Advance is in 1/64th pixels, convert to pixels
-            width += static_cast<float32>(ch.advance >> 6) * scale;
-        }
-    }
-
-    return width;
+    float32 fontSize = m_fontSize * scale;
+    Vector2 measured = MeasureTextEx(m_font, text.c_str(), fontSize, 1.0f);
+    return measured.x;
 }
 
 float32
 TextRenderer::getCharWidth(float32 scale) const
 {
-    if (m_characters.empty())
-    {
+    if (!m_fontLoaded)
         return 0.0f;
-    }
 
-    auto it = m_characters.find('M');
-    if (it != m_characters.end())
+    // Use 'M' as reference for character width (widest common character)
+    int codepoint      = static_cast<int>('M');
+    GlyphInfo glyphInfo = GetGlyphInfo(m_font, codepoint);
+
+    float32 width = static_cast<float32>(glyphInfo.advanceX);
+    if (width == 0.0f)
     {
-        return static_cast<float32>(it->second.advance >> 6) * scale;
+        width = static_cast<float32>(glyphInfo.image.width);
     }
 
-    return static_cast<float32>(m_characters.begin()->second.advance >> 6) * scale;
+    return width * scale;
 }
 
 float32
 TextRenderer::getLineHeight(float32 scale) const
 {
-    if (m_characters.empty())
-    {
+    if (!m_fontLoaded)
         return 0.0f;
-    }
 
-    float32 maxHeight = 0.0f;
-    for (const auto& [ch, character] : m_characters)
-    {
-        if (character.size.y > maxHeight)
-        {
-            maxHeight = static_cast<float32>(character.size.y);
-        }
-    }
-
-    return maxHeight * scale * 1.2f;
-}
-
-void
-TextRenderer::setupRenderData()
-{
-    // Configure VAO/VBO for texture quads
-    glGenVertexArrays(1, &m_VAO);
-    glGenBuffers(1, &m_VBO);
-
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float32) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float32), 0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
+    // Use font's base size with some line spacing (1.2x)
+    return m_fontSize * scale * 1.2f;
 }
 
 }  // namespace deadcode

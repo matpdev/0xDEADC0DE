@@ -2,10 +2,10 @@
  * @file Renderer.hpp
  * @brief Main rendering coordinator
  *
- * Manages OpenGL state and coordinates rendering operations.
+ * Manages Raylib rendering state and coordinates rendering operations.
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #pragma once
@@ -25,7 +25,7 @@ class Window;
 /**
  * @brief Main rendering system coordinator
  *
- * Manages OpenGL state and provides high-level rendering interface.
+ * Manages rendering state and provides high-level rendering interface.
  */
 class Renderer
 {

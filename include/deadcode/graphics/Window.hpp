@@ -1,22 +1,17 @@
 /**
  * @file Window.hpp
- * @brief Window management with OpenGL context
+ * @brief Window management with Raylib
  *
- * Wraps GLFW window functionality and manages OpenGL context creation
+ * Wraps Raylib window functionality and manages window creation
  * and event handling.
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-21
+ * @date 2026-02-08
  */
 
 #pragma once
 
 #include "deadcode/core/Types.hpp"
-
-#include <functional>
-#include <string>
-
-struct GLFWwindow;
 
 namespace deadcode
 {
@@ -31,15 +26,13 @@ struct WindowConfig
     int32 height{600};
     bool fullscreen{false};
     bool vsync{true};
-    int32 glMajorVersion{3};
-    int32 glMinorVersion{3};
+    int32 targetFPS{60};
 };
 
 /**
- * @brief GLFW window wrapper with OpenGL context
+ * @brief Raylib window wrapper
  *
- * Manages window creation, OpenGL context initialization,
- * and basic window operations.
+ * Manages window creation, configuration, and basic window operations.
  */
 class Window
 {
@@ -74,7 +67,7 @@ public:
     [[nodiscard]] bool shouldClose() const;
 
     /**
-     * @brief Swap front and back buffers
+     * @brief Swap front and back buffers (no-op for Raylib, kept for API compatibility)
      */
     void swapBuffers();
 
@@ -108,12 +101,6 @@ public:
      */
     void setTitle(const String& title);
 
-    /**
-     * @brief Get native GLFW window handle
-     * @return Pointer to GLFWwindow
-     */
-    [[nodiscard]] GLFWwindow* getNativeWindow() const;
-
     // Delete copy constructor and assignment
     Window(const Window&)            = delete;
     Window& operator=(const Window&) = delete;
@@ -123,18 +110,7 @@ public:
     Window& operator=(Window&& other) noexcept;
 
 private:
-    /**
-     * @brief Setup OpenGL context and GLEW
-     * @return true if successful
-     */
-    bool setupOpenGL();
-
-    /**
-     * @brief Framebuffer size callback
-     */
-    static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-
-    GLFWwindow* m_window;
+    bool m_isOpen;
     WindowConfig m_config;
 };
 

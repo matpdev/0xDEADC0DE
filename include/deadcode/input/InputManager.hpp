@@ -3,7 +3,7 @@
  * @brief Input handling for keyboard and mouse
  *
  * @author 0xDEADC0DE Team
- * @date 2026-01-22
+ * @date 2026-02-08
  */
 
 #pragma once
@@ -11,8 +11,7 @@
 #include "deadcode/core/Types.hpp"
 
 #include <functional>
-
-struct GLFWwindow;
+#include <unordered_map>
 
 namespace deadcode
 {
@@ -22,13 +21,14 @@ class Window;
 /**
  * @brief Input management system
  *
- * Handles keyboard and mouse input via GLFW callbacks.
- * Provides event-based input handling.
+ * Handles keyboard and mouse input via Raylib polling.
+ * Provides event-based input handling through callbacks.
  */
 class InputManager
 {
 public:
     // Callback types
+    // For Raylib: action = 0 (release), 1 (press), 2 (repeat)
     using KeyCallback         = std::function<void(int key, int scancode, int action, int mods)>;
     using MouseMoveCallback   = std::function<void(double x, double y)>;
     using MouseButtonCallback = std::function<void(int button, int action, int mods)>;
@@ -55,6 +55,13 @@ public:
      * @brief Shutdown input manager
      */
     void shutdown();
+
+    /**
+     * @brief Poll input events and trigger callbacks
+     *
+     * Must be called each frame to update input state and trigger callbacks.
+     */
+    void pollEvents();
 
     /**
      * @brief Set keyboard callback
@@ -90,22 +97,7 @@ public:
     InputManager& operator=(const InputManager&) = delete;
 
 private:
-    /**
-     * @brief GLFW key callback
-     */
-    static void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-
-    /**
-     * @brief GLFW cursor position callback
-     */
-    static void glfwCursorPosCallback(GLFWwindow* window, double x, double y);
-
-    /**
-     * @brief GLFW mouse button callback
-     */
-    static void glfwMouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-
-    GLFWwindow* m_window{nullptr};
+    Window* m_window{nullptr};
     bool m_initialized{false};
 
     KeyCallback m_keyCallback;
@@ -114,6 +106,10 @@ private:
 
     double m_mouseX{0.0};
     double m_mouseY{0.0};
+
+    // Track previous key states for edge detection
+    std::unordered_map<int, bool> m_previousKeyStates;
+    std::unordered_map<int, bool> m_previousMouseButtonStates;
 };
 
 }  // namespace deadcode

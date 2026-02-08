@@ -57,7 +57,7 @@ StartMenu::initialize(int32 screenWidth, int32 screenHeight)
 
     // Initialize glitch effect with enhanced settings
     GlitchConfig glitchConfig;
-    glitchConfig.enabled               = true;
+    glitchConfig.enabled               = false;
     glitchConfig.frequency             = 0.5f;   // One glitch every 2 seconds
     glitchConfig.duration              = 0.25f;  // Longer duration for complex effects
     glitchConfig.idleTime              = 2.0f;
@@ -152,7 +152,7 @@ StartMenu::renderLogo(TextRenderer* textRenderer)
     heightScale         = std::max(0.4f, std::min(heightScale, 2.0f));     // Clamp [0.4, 2.0]
 
     // Position logo at 10% from top (responsive)
-    float32 topY = static_cast<float32>(m_screenHeight) * 0.90f;
+    float32 topY = static_cast<float32>(m_screenHeight) * 0.20f;
 
     // Render main title: 0xD3ADC0DE (large, bold)
     const String& mainTitle = m_logoLines[0];
@@ -222,7 +222,7 @@ StartMenu::renderLogo(TextRenderer* textRenderer)
     float32 subtitleX     = screenCenterX - subtitleWidth / 2.0f;
 
     // Responsive spacing between title and subtitle
-    float32 spacing   = 20.0f * heightScale;
+    float32 spacing   = 10.0f * heightScale;
     float32 subtitleY = topY - textRenderer->getLineHeight(mainTitleScale) - spacing;
 
     textRenderer->renderText(subtitle, subtitleX, subtitleY, subtitleScale, subtitleColor);
@@ -237,7 +237,7 @@ StartMenu::renderOptions(TextRenderer* textRenderer)
     float32 scale = m_mainFrame->m_scale;
 
     // Render frame
-    m_mainFrame->render(textRenderer, scale);
+    // m_mainFrame->render(textRenderer, scale);
 
     float32 contentX, contentY;
     int32 contentWidth, contentHeight;
@@ -281,7 +281,7 @@ StartMenu::renderOptions(TextRenderer* textRenderer)
         float32 lineWidth   = textRenderer->getTextWidth(fullLine, scale);
         float32 centerX     = screenCenterX - ((lineWidth + prefixWidth) / 2.0f);
 
-        textRenderer->renderText(fullLine, centerX, contentY - (lineOffset * lineHeight * 2.0f),
+        textRenderer->renderText(fullLine, centerX, contentY + (lineOffset * lineHeight * 1.2),
                                  scale, optionColor);
 
         lineOffset++;
@@ -294,14 +294,14 @@ StartMenu::renderFooter(TextRenderer* textRenderer)
     if (!textRenderer)
         return;
 
-    constexpr float32 FOOTER_SCALE   = 0.2f;  // Halved for 96px font
+    constexpr float32 FOOTER_SCALE   = 0.3f;  // Halved for 96px font
     constexpr glm::vec3 FOOTER_COLOR = glm::vec3(0.5f, 0.5f, 0.5f);
 
     // Render version info at bottom
     String versionText = "Version " + Version::getVersionString();
     float32 versionX   = static_cast<float32>(m_screenWidth) -
-                       textRenderer->getTextWidth(versionText, 0.4f) - 20.0f;
-    float32 versionY = 20.0f;
+                       textRenderer->getTextWidth(versionText, 0.4f);
+    float32 versionY = m_screenHeight - 30.0f;
 
     textRenderer->renderText(versionText, versionX, versionY, FOOTER_SCALE,
                              FOOTER_COLOR);  // Gray
@@ -309,7 +309,7 @@ StartMenu::renderFooter(TextRenderer* textRenderer)
     // Render copyright
     String copyrightText = "(c) 2026 0xDEADC0DE Team";
     float32 copyrightX   = 20.0f;
-    float32 copyrightY   = 20.0f;
+    float32 copyrightY   = m_screenHeight - 30.0f;
 
     textRenderer->renderText(copyrightText, copyrightX, copyrightY, FOOTER_SCALE,
                              FOOTER_COLOR);  // Gray
