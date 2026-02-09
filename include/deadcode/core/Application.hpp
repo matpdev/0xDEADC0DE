@@ -23,11 +23,8 @@ namespace deadcode
 class StartMenu;
 class InputManager;
 class SaveSystem;
-<<<<<<< Updated upstream
-=======
 class TextBox;
 class GameLoop;
->>>>>>> Stashed changes
 
 /**
  * @brief Main application class following the Singleton pattern

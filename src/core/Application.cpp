@@ -19,11 +19,12 @@
 #include "deadcode/graphics/Window.hpp"
 #include "deadcode/input/InputManager.hpp"
 #include "deadcode/ui/StartMenu.hpp"
-
-#include <raylib.h>
+#include "deadcode/ui/TextBox.hpp"
 
 #include <chrono>
 #include <thread>
+
+#include <raylib.h>
 
 namespace deadcode
 {
@@ -38,11 +39,8 @@ struct Application::Impl
     UniquePtr<AudioManager> audioManager;
     UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
-<<<<<<< Updated upstream
-=======
     UniquePtr<TextBox> textBox;
     UniquePtr<GameLoop> gameLoop;
->>>>>>> Stashed changes
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
     float deltaTime{0.0f};
@@ -116,8 +114,6 @@ Application::initialize(int argc, char** argv)
         return false;
     }
 
-<<<<<<< Updated upstream
-=======
     if (!initializeGameLoop())
     {
         return false;
@@ -128,7 +124,6 @@ Application::initialize(int argc, char** argv)
         return false;
     }
 
->>>>>>> Stashed changes
     if (!initializeGame())
     {
         return false;
@@ -399,8 +394,6 @@ Application::initializeGame()
     return true;
 }
 
-<<<<<<< Updated upstream
-=======
 bool
 Application::initializeTextBox()
 {
@@ -431,7 +424,6 @@ Application::initializeGameLoop()
     return true;
 }
 
->>>>>>> Stashed changes
 void
 Application::processInput(float deltaTime)
 {
