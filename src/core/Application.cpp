@@ -11,6 +11,7 @@
 #include "deadcode/audio/AudioManager.hpp"
 #include "deadcode/core/Config.hpp"
 #include "deadcode/core/Logger.hpp"
+#include "deadcode/core/Types.hpp"
 #include "deadcode/core/Version.hpp"
 #include "deadcode/game/GameState.hpp"
 #include "deadcode/game/SaveSystem.hpp"
@@ -18,11 +19,13 @@
 #include "deadcode/graphics/Window.hpp"
 #include "deadcode/input/InputManager.hpp"
 #include "deadcode/ui/StartMenu.hpp"
-
-#include <raylib.h>
+#include "deadcode/ui/TextBox.hpp"
 
 #include <chrono>
+#include <memory>
 #include <thread>
+
+#include <raylib.h>
 
 namespace deadcode
 {
@@ -37,6 +40,7 @@ struct Application::Impl
     UniquePtr<AudioManager> audioManager;
     UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
+    UniquePtr<TextBox> textBox;
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
     float deltaTime{0.0f};
@@ -110,6 +114,11 @@ Application::initialize(int argc, char** argv)
         return false;
     }
 
+    if (!initializeTextBox())
+    {
+        return false;
+    }
+
     if (!initializeGame())
     {
         return false;
@@ -134,7 +143,7 @@ Application::run()
     Logger::info("Starting main game loop");
     m_running = true;
 
-    while (m_running && !m_exitRequested && !m_impl->window->shouldClose())
+    while (m_running && !m_exitRequested)
     {
         auto currentTime                     = std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> elapsed = currentTime - m_impl->lastFrameTime;
@@ -203,7 +212,12 @@ Application::requestExit()
 {
     Logger::info("Exit requested");
 
-    m_exitRequested = true;
+    // m_exitRequested = true;
+
+    m_impl->textBox->setVisible(true);
+
+    m_impl->textBox->setCallback(false, [this]() -> void { m_impl->textBox->setVisible(false); });
+    m_impl->textBox->setCallback(true, [this]() -> void { m_exitRequested = true; });
 }
 
 bool
@@ -380,6 +394,20 @@ Application::initializeGame()
     return true;
 }
 
+bool
+Application::initializeTextBox()
+{
+    Logger::info("Initializing text box systems...");
+
+    m_impl->textBox = std::make_unique<TextBox>();
+    if (!m_impl->textBox->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
+    {
+        return false;
+    }
+
+    return true;
+}
+
 void
 Application::processInput(float deltaTime)
 {
@@ -409,6 +437,10 @@ Application::update(float deltaTime)
     if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
     {
         m_impl->mainMenu->update(deltaTime);
+        if (m_impl->textBox->isVisible())
+        {
+            m_impl->textBox->update(deltaTime);
+        }
     }
     else if (m_gameState == GameState::Playing)
     {
@@ -443,6 +475,8 @@ Application::render(float deltaTime)
 
         textRenderer->renderText("Hello World", x, y, scale, color);
     }
+
+    m_impl->textBox->render(textRenderer);
 
     m_impl->renderer->endFrame();
 }
@@ -510,9 +544,13 @@ Application::handleKeyInput(int key, int scancode, int action, int mods)
     (void) scancode;  // Unused for now
     (void) mods;      // Unused for now
 
-    if (m_gameState == GameState::MainMenu && m_impl->mainMenu)
+    if (m_gameState == GameState::MainMenu && m_impl->mainMenu && !m_impl->textBox->isVisible())
     {
         m_impl->mainMenu->handleInput(key, action);
+    }
+    else if (m_gameState == GameState::MainMenu && m_impl->mainMenu && m_impl->textBox->isVisible())
+    {
+        m_impl->textBox->handleInput(key, action);
     }
 }
 
@@ -561,7 +599,10 @@ Application::handleWindowResize()
             m_impl->mainMenu->onWindowResize(currentWidth, currentHeight);
         }
 
-        // Note: StartMenu handles screen size internally on next render
+        if (m_impl->textBox)
+        {
+            m_impl->textBox->onWindowResize(currentWidth, currentHeight);
+        }
     }
 }
 }  // namespace deadcode
