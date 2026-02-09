@@ -37,6 +37,12 @@
 },
 {
   "directory": "/mnt/storage/Projects/0xDEADC0DE/build",
+  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/mnt/storage/Projects/0xDEADC0DE/include -I/mnt/storage/Projects/0xDEADC0DE/src -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/tweeny -g -std=c++20 -fPIC -I/mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/debug/lib/pkgconfig/../../../include -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/game/GameLoop.cpp.o -c /mnt/storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
+  "file": "/mnt/storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
+  "output": "CMakeFiles/deadcode_engine.dir/src/game/GameLoop.cpp.o"
+},
+{
+  "directory": "/mnt/storage/Projects/0xDEADC0DE/build",
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/mnt/storage/Projects/0xDEADC0DE/include -I/mnt/storage/Projects/0xDEADC0DE/src -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/tweeny -g -std=c++20 -fPIC -I/mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/debug/lib/pkgconfig/../../../include -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/graphics/Window.cpp.o -c /mnt/storage/Projects/0xDEADC0DE/src/graphics/Window.cpp",
   "file": "/mnt/storage/Projects/0xDEADC0DE/src/graphics/Window.cpp",
   "output": "CMakeFiles/deadcode_engine.dir/src/graphics/Window.cpp.o"
@@ -142,12 +148,6 @@
   "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/mnt/storage/Projects/0xDEADC0DE/include -I/mnt/storage/Projects/0xDEADC0DE/src -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/tweeny -g -std=c++20 -fPIC -I/mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/debug/lib/pkgconfig/../../../include -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_engine.dir/src/ui/ConfigMenu.cpp.o -c /mnt/storage/Projects/0xDEADC0DE/src/ui/ConfigMenu.cpp",
   "file": "/mnt/storage/Projects/0xDEADC0DE/src/ui/ConfigMenu.cpp",
   "output": "CMakeFiles/deadcode_engine.dir/src/ui/ConfigMenu.cpp.o"
-},
-{
-  "directory": "/mnt/storage/Projects/0xDEADC0DE/build",
-  "command": "/usr/bin/c++ -DSPDLOG_COMPILED_LIB -DSPDLOG_FMT_EXTERNAL -I/mnt/storage/Projects/0xDEADC0DE/include -I/mnt/storage/Projects/0xDEADC0DE/src -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include -isystem /mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/include/tweeny -g -std=c++20 -I/mnt/storage/Projects/0xDEADC0DE/build/vcpkg_installed/x64-linux/debug/lib/pkgconfig/../../../include -Wall -Wextra -Wpedantic -Wshadow -Wnon-virtual-dtor -Wold-style-cast -Wcast-align -Wunused -Woverloaded-virtual -Wconversion -Wsign-conversion -Wnull-dereference -Wdouble-promotion -Wformat=2 -Wimplicit-fallthrough -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wuseless-cast -o CMakeFiles/deadcode_game.dir/src/game/GameLoop.cpp.o -c /mnt/storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
-  "file": "/mnt/storage/Projects/0xDEADC0DE/src/game/GameLoop.cpp",
-  "output": "CMakeFiles/deadcode_game.dir/src/game/GameLoop.cpp.o"
 },
 {
   "directory": "/mnt/storage/Projects/0xDEADC0DE/build",

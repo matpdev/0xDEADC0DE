@@ -12,6 +12,7 @@
 #include "deadcode/core/Config.hpp"
 #include "deadcode/core/Logger.hpp"
 #include "deadcode/core/Version.hpp"
+#include "deadcode/game/GameLoop.hpp"
 #include "deadcode/game/GameState.hpp"
 #include "deadcode/game/SaveSystem.hpp"
 #include "deadcode/graphics/Renderer.hpp"
@@ -37,6 +38,11 @@ struct Application::Impl
     UniquePtr<AudioManager> audioManager;
     UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
+<<<<<<< Updated upstream
+=======
+    UniquePtr<TextBox> textBox;
+    UniquePtr<GameLoop> gameLoop;
+>>>>>>> Stashed changes
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
     float deltaTime{0.0f};
@@ -110,6 +116,19 @@ Application::initialize(int argc, char** argv)
         return false;
     }
 
+<<<<<<< Updated upstream
+=======
+    if (!initializeGameLoop())
+    {
+        return false;
+    }
+
+    if (!initializeTextBox())
+    {
+        return false;
+    }
+
+>>>>>>> Stashed changes
     if (!initializeGame())
     {
         return false;
@@ -380,6 +399,39 @@ Application::initializeGame()
     return true;
 }
 
+<<<<<<< Updated upstream
+=======
+bool
+Application::initializeTextBox()
+{
+    Logger::info("Initializing text box systems...");
+
+    m_impl->textBox = std::make_unique<TextBox>();
+    if (!m_impl->textBox->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
+    {
+        Logger::error("Occurred an error trying to initialize TextBox");
+        return false;
+    }
+
+    return true;
+}
+
+bool
+Application::initializeGameLoop()
+{
+    Logger::info("Initiliing game loop systems...");
+
+    m_impl->gameLoop = std::make_unique<GameLoop>();
+    if (!m_impl->gameLoop->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
+    {
+        Logger::error("Occurred an error trying to initialize Game Loop");
+        return false;
+    }
+
+    return true;
+}
+
+>>>>>>> Stashed changes
 void
 Application::processInput(float deltaTime)
 {
@@ -412,7 +464,7 @@ Application::update(float deltaTime)
     }
     else if (m_gameState == GameState::Playing)
     {
-        // TODO: Update game logic
+        m_impl->gameLoop->update(deltaTime);
     }
 }
 
@@ -435,13 +487,7 @@ Application::render(float deltaTime)
     }
     else if (m_gameState == GameState::Playing && textRenderer)
     {
-        // Render "Hello World" in green at center of screen
-        float32 x     = 200.0f;
-        float32 y     = 300.0f;
-        float32 scale = 1.0f;
-        glm::vec3 color(0.0f, 1.0f, 0.0f);  // Green
-
-        textRenderer->renderText("Hello World", x, y, scale, color);
+        m_impl->gameLoop->render(textRenderer);
     }
 
     m_impl->renderer->endFrame();
@@ -450,20 +496,6 @@ Application::render(float deltaTime)
 void
 Application::syncFrameRate()
 {
-    if (m_targetFPS <= 0)
-    {
-        return;  // Unlimited FPS
-    }
-
-    auto targetFrameTime = std::chrono::duration<float>(1.0f / static_cast<float>(m_targetFPS));
-    auto currentTime     = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> frameTime = currentTime - m_impl->lastFrameTime;
-
-    if (frameTime < targetFrameTime)
-    {
-        auto sleepTime = targetFrameTime - frameTime;
-        std::this_thread::sleep_for(sleepTime);
-    }
 }
 
 void

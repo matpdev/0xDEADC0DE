@@ -23,6 +23,11 @@ namespace deadcode
 class StartMenu;
 class InputManager;
 class SaveSystem;
+<<<<<<< Updated upstream
+=======
+class TextBox;
+class GameLoop;
+>>>>>>> Stashed changes
 
 /**
  * @brief Main application class following the Singleton pattern
@@ -176,6 +181,17 @@ private:
     bool initializeGame();
 
     /**
+<<<<<<< Updated upstream
+=======
+     * @brief Initialize text box systems
+     * @return true if successful
+     */
+    bool initializeTextBox();
+
+    bool initializeGameLoop();
+
+    /**
+>>>>>>> Stashed changes
      * @brief Process input events
      * @param deltaTime Time since last frame in seconds
      */
