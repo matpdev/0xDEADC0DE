@@ -23,6 +23,7 @@ namespace deadcode
 class StartMenu;
 class InputManager;
 class SaveSystem;
+class TextBox;
 
 /**
  * @brief Main application class following the Singleton pattern
@@ -174,6 +175,12 @@ private:
      * @return true if successful
      */
     bool initializeGame();
+
+    /**
+     * @brief Initialize text box systems
+     * @return true if successful
+     */
+    bool initializeTextBox();
 
     /**
      * @brief Process input events
