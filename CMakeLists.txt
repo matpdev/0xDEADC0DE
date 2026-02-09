@@ -210,6 +210,7 @@ add_library(deadcode_engine STATIC
 
   # Game Systems (SaveSystem needed by Application)
   src/game/SaveSystem.cpp
+  src/game/GameLoop.cpp
 
   # Graphics
   src/graphics/Window.cpp
@@ -269,9 +270,6 @@ set_target_properties(deadcode_engine PROPERTIES
 # Game Library
 # -----------------------------------------------------------------------------
 add_library(deadcode_game STATIC
-  # Game Systems
-  src/game/GameLoop.cpp
-
   # Entities
   src/game/entities/Entity.cpp
   src/game/entities/Character.cpp

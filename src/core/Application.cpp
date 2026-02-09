@@ -13,6 +13,7 @@
 #include "deadcode/core/Logger.hpp"
 #include "deadcode/core/Types.hpp"
 #include "deadcode/core/Version.hpp"
+#include "deadcode/game/GameLoop.hpp"
 #include "deadcode/game/GameState.hpp"
 #include "deadcode/game/SaveSystem.hpp"
 #include "deadcode/graphics/Renderer.hpp"
@@ -41,6 +42,7 @@ struct Application::Impl
     UniquePtr<StartMenu> mainMenu;
     UniquePtr<SaveSystem> saveSystem;
     UniquePtr<TextBox> textBox;
+    UniquePtr<GameLoop> gameLoop;
 
     std::chrono::high_resolution_clock::time_point lastFrameTime;
     float deltaTime{0.0f};
@@ -110,6 +112,11 @@ Application::initialize(int argc, char** argv)
     }
 
     if (!initializeResources())
+    {
+        return false;
+    }
+
+    if (!initializeGameLoop())
     {
         return false;
     }
@@ -408,6 +415,20 @@ Application::initializeTextBox()
     return true;
 }
 
+bool
+Application::initializeGameLoop()
+{
+    Logger::info("Initializing game loop...");
+
+    m_impl->gameLoop = std::make_unique<GameLoop>();
+    if (!m_impl->gameLoop->initialize(m_impl->window->getWidth(), m_impl->window->getHeight()))
+    {
+        return false;
+    }
+
+    return true;
+}
+
 void
 Application::processInput(float deltaTime)
 {
@@ -444,7 +465,7 @@ Application::update(float deltaTime)
     }
     else if (m_gameState == GameState::Playing)
     {
-        // TODO: Update game logic
+        m_impl->gameLoop->update(deltaTime);
     }
 }
 
@@ -467,13 +488,7 @@ Application::render(float deltaTime)
     }
     else if (m_gameState == GameState::Playing && textRenderer)
     {
-        // Render "Hello World" in green at center of screen
-        float32 x     = 200.0f;
-        float32 y     = 300.0f;
-        float32 scale = 1.0f;
-        glm::vec3 color(0.0f, 1.0f, 0.0f);  // Green
-
-        textRenderer->renderText("Hello World", x, y, scale, color);
+        m_impl->gameLoop->render(textRenderer);
     }
 
     m_impl->textBox->render(textRenderer);
@@ -552,6 +567,10 @@ Application::handleKeyInput(int key, int scancode, int action, int mods)
     {
         m_impl->textBox->handleInput(key, action);
     }
+    else if (m_gameState == GameState::Playing && m_impl->gameLoop)
+    {
+        m_impl->gameLoop->handleInput(key, action);
+    }
 }
 
 void
@@ -602,6 +621,11 @@ Application::handleWindowResize()
         if (m_impl->textBox)
         {
             m_impl->textBox->onWindowResize(currentWidth, currentHeight);
+        }
+
+        if (m_impl->gameLoop)
+        {
+            m_impl->gameLoop->onWindowResize(currentWidth, currentHeight);
         }
     }
 }

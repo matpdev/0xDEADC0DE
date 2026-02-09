@@ -59,13 +59,13 @@
     "clangd": {
       "binary": {
         "path": "/usr/bin/clangd",
-        "arguments": ["--compile-commands-dir=/mnt/storage/Projects/0xDEADC0DE/build", "--background-index", "--clang-tidy", "--header-insertion=iwyu", "--completion-style=detailed", "--function-arg-placeholders", "--fallback-style=file", "-j=12"]
+        "arguments": ["--compile-commands-dir=/Users/matheus/Works/0xDEADC0DE/build", "--background-index", "--clang-tidy", "--header-insertion=iwyu", "--completion-style=detailed", "--function-arg-placeholders", "--fallback-style=file", "-j=10"]
       }
     }
   },
   "terminal": {
     "env": {
-      "VCPKG_ROOT": "/home/mistergrow/vcpkg"
+      "VCPKG_ROOT": "/Users/matheus/vcpkg"
     }
   }
 }

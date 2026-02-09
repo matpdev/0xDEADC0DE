@@ -24,6 +24,7 @@ class StartMenu;
 class InputManager;
 class SaveSystem;
 class TextBox;
+class GameLoop;
 
 /**
  * @brief Main application class following the Singleton pattern
@@ -181,6 +182,8 @@ private:
      * @return true if successful
      */
     bool initializeTextBox();
+
+    bool initializeGameLoop();
 
     /**
      * @brief Process input events
