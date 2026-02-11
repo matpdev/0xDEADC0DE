@@ -150,7 +150,7 @@ Application::run()
     Logger::info("Starting main game loop");
     m_running = true;
 
-    while (m_running && !m_exitRequested)
+    while (m_running && !m_exitRequested && !m_impl->window->shouldClose())
     {
         auto currentTime                     = std::chrono::high_resolution_clock::now();
         std::chrono::duration<float> elapsed = currentTime - m_impl->lastFrameTime;

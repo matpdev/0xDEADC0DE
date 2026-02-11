@@ -10,7 +10,6 @@
 
 #include "deadcode/core/Types.hpp"
 #include "deadcode/graphics/TextRenderer.hpp"
-#include "deadcode/input/InputManager.hpp"
 
 #include <functional>
 #include <memory>
@@ -19,6 +18,8 @@
 
 namespace deadcode
 {
+class TextInput;
+
 class GameLoop
 {
 public:
@@ -45,5 +46,7 @@ private:
 
     int32 m_screenWidth{1920};
     int32 m_screenHeight{1080};
+
+    TextInput* m_textInput{nullptr};
 };
 }  // namespace deadcode
